@@ -26,6 +26,13 @@ DROP TABLE IF EXISTS Minuteur;
 -- Tables Structure Section-----------------------------------------
 
 
+-- Maison
+CREATE TABLE Maison(
+  IdMaison char(8) NOT NULL,
+  Surface smallint(1) UNSIGNED NOT NULL,
+  PRIMARY KEY (IdMaison)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 -- Utilisateur
 CREATE TABLE Utilisateur(
   Identifiant varchar(16) NOT NULL,
@@ -34,13 +41,6 @@ CREATE TABLE Utilisateur(
   IdMaison char(8) NOT NULL,
   PRIMARY KEY (Identifiant),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Maison
-CREATE TABLE Maison(
-  IdMaison char(8) NOT NULL,
-  Surface smallint(1) UNSIGNED NOT NULL,
-  PRIMARY KEY (IdMaison)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Pièce
@@ -53,6 +53,14 @@ CREATE TABLE Pièce(
   IdMaison char(8) NOT NULL,
   PRIMARY KEY (IdPièce),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Minuteur
+CREATE TABLE Minuteur (
+  IdMinuteur char(8) NOT NULL
+  HeureDeb TIME DEFAULT 000000 NOT NULL,
+  HeureFin TIME DEFAULT 000000 NOT NULL,
+  PRIMARY KEY (IdMinuteur)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Electroménager
@@ -100,14 +108,6 @@ CREATE TABLE Energie (
   FOREIGN KEY (IdLumière) REFERENCES Lumière (IdLumière),
   FOREIGN KEY (IdChauffage) REFERENCES Chauffage (Chauffage),
   FOREIGN KEY (IdElectro) REFERENCES Electroménager (IdElectro)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Minuteur
-CREATE TABLE Minuteur (
-  IdMinuteur char(8) NOT NULL
-  HeureDeb TIME DEFAULT 000000 NOT NULL,
-  HeureFin TIME DEFAULT 000000 NOT NULL,
-  PRIMARY KEY (IdMinuteur)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
