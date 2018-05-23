@@ -106,7 +106,7 @@ CREATE TABLE Energie (
   IdLumière smallint,
   IdChauffage smallint,
   IdElectro smallint,
-  CONSTRAINT C_Id_Ener CHECK((IdLumière NOT NULL AND IdChauffage NULL AND IdElectro NULL) OR (IdLumière NULL AND IdChauffage NOT NULL AND IdElectro NULL) OR (IdLumière NULL AND IdChauffage NULL AND IdElectro NOT NULL)),
+  CONSTRAINT C_Id_Ener CHECK((IdLumière is NOT NULL AND IdChauffage is NULL AND IdElectro is NULL) OR (IdLumière is NULL AND IdChauffage is NOT NULL AND IdElectro is NULL) OR (IdLumière is NULL AND IdChauffage is NULL AND IdElectro is NOT NULL)),
   FOREIGN KEY (IdLumière) REFERENCES Lumière (IdLumière),
   FOREIGN KEY (IdChauffage) REFERENCES Chauffage (Chauffage),
   FOREIGN KEY (IdElectro) REFERENCES Electroménager (IdElectro)
