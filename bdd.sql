@@ -57,9 +57,9 @@ CREATE TABLE Pièce(
 
 -- Minuteur
 CREATE TABLE Minuteur (
-  IdMinuteur char(8) NOT NULL
-  HeureDeb TIME DEFAULT 000000 NOT NULL,
-  HeureFin TIME DEFAULT 000000 NOT NULL,
+  IdMinuteur char(8) NOT NULL,
+  HeureDeb TIME DEFAULT '000000' NOT NULL,
+  HeureFin TIME DEFAULT '000000' NOT NULL,
   PRIMARY KEY (IdMinuteur)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
