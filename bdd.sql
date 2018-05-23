@@ -28,8 +28,8 @@ DROP TABLE IF EXISTS Minuteur;
 
 -- Maison
 CREATE TABLE Maison(
-  IdMaison char(8) NOT NULL,
-  Surface smallint(1) UNSIGNED NOT NULL,
+  IdMaison smallint AUTO_INCREMENT,
+  Surface smallint UNSIGNED NOT NULL,
   PRIMARY KEY (IdMaison)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -45,11 +45,11 @@ CREATE TABLE Utilisateur(
 
 -- Pièce
 CREATE TABLE Pièce(
-  IdPièce char(8) NOT NULL,
+  IdPièce smallint AUTO_INCREMENT,
   NomPièce varchar(16) NOT NULL,
-  Surface smallint(1) UNSIGNED NOT NULL,
-  TempPièce tinyint(1) DEFAULT 0 NOT NULL,
-  ScorePièce tinyint(1) UNSIGNED DEFAULT 50 NOT NULL,
+  Surface smallint UNSIGNED NOT NULL,
+  TempPièce tinyint DEFAULT 0 NOT NULL,
+  ScorePièce tinyint UNSIGNED DEFAULT 50 NOT NULL,
   IdMaison char(8) NOT NULL,
   PRIMARY KEY (IdPièce),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
@@ -57,7 +57,7 @@ CREATE TABLE Pièce(
 
 -- Minuteur
 CREATE TABLE Minuteur (
-  IdMinuteur char(8) NOT NULL,
+  IdMinuteur smallint AUTO_INCREMENT,
   HeureDeb TIME DEFAULT '000000' NOT NULL,
   HeureFin TIME DEFAULT '000000' NOT NULL,
   PRIMARY KEY (IdMinuteur)
@@ -65,8 +65,9 @@ CREATE TABLE Minuteur (
 
 -- Electroménager
 CREATE TABLE Electroménager (
-  IdElectro char(8) NOT NULL,
-  Etat tinyint(1) DEFAULT 0 NOT NULL,
+  IdElectro smallint AUTO_INCREMENT,
+  NomElectro char(16) NOT NULL,
+  Etat tinyint DEFAULT 0 NOT NULL,
   IdPièce char(8) NOT NULL,
   IdMinuteur char(8),
   PRIMARY KEY (IdElectro),
@@ -76,8 +77,8 @@ CREATE TABLE Electroménager (
 
 -- Lumière
 CREATE TABLE Lumière (
-  IdLumière char(8) NOT NULL,
-  Etat tinyint(1) DEFAULT 0 NOT NULL,
+  IdLumière smallint AUTO_INCREMENT,
+  Etat tinyint DEFAULT 0 NOT NULL,
   IdPièce char(8) NOT NULL,
   IdMinuteur char(8),
   PRIMARY KEY (IdLumière),
@@ -87,10 +88,10 @@ CREATE TABLE Lumière (
 
 -- Chauffage
 CREATE TABLE Chauffage (
-  IdChauffage char(8) NOT NULL,
-  TempChauff tinyint(1) DEFAULT 15 NOT NULL,
-  TempExt tinyint(1) DEFAULT 0 NOT NULL,
-  Etat tinyint(1) DEFAULT 0 NOT NULL,
+  IdChauffage smallint AUTO_INCREMENT,
+  TempChauff tinyint DEFAULT 15 NOT NULL,
+  TempExt tinyint DEFAULT 0 NOT NULL,
+  Etat tinyint DEFAULT 0 NOT NULL,
   IdPièce char(8) NOT NULL,
   IdMinuteur char(8),
   PRIMARY KEY (IdChauffage),
@@ -100,7 +101,7 @@ CREATE TABLE Chauffage (
 
 -- Energie
 CREATE TABLE Energie (
-  EnerCons smallint(1) UNSIGNED DEFAULT 0 NOT NULL,
+  EnerCons smallint UNSIGNED DEFAULT 0 NOT NULL,
   DateHeureMinute DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
   IdLumière char(8),
   IdChauffage char(8),
@@ -114,25 +115,25 @@ CREATE TABLE Energie (
 
 -- Données Maison defaut------------------------------------------------
 
+INSERT INTO Maison (Surface) VALUES
+  (100);
+  
 INSERT INTO Utilisateur (Identifiant, Mdp, IdMaison) VALUES
-  (admin,admin,00000000);
+  ('admin','admin',0);
 
-INSERT INTO Maison (IdMaison, Surface) VALUES
-  (00000000, 100);
-
-INSERT INTO Pièce (IdPièce, NomPièce, Surface, IdMaison) VALUES
-  (00000000, Salon, 50, 00000000),
-  (00000001, Chambre, 25, 00000000),
-  (00000002, Cuisine, 25, 00000000);
+INSERT INTO Pièce (NomPièce, Surface, IdMaison) VALUES
+  (Salon, 50, 0),
+  (Chambre, 25, 0),
+  (Cuisine, 25, 0);
 
 --INSERT INTO Electroménager (IdElectro, IdPièce) VALUES
 
-INSERT INTO Lumière (IdLumière, IdPièce) VALUES
-  (00000000,00000000),
-  (00000001,00000001),
-  (00000002,00000002);
+INSERT INTO Lumière (IdPièce) VALUES
+  (0),
+  (1),
+  (2);
 
-INSERT INTO Chauffage (IdChauffage,IdPièce) VALUES
-  (00000000,00000000),
-  (00000001,00000001),
-  (00000002,00000002);
+INSERT INTO Chauffage (IdPièce) VALUES
+  (0),
+  (1),
+  (2);
