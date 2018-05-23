@@ -38,7 +38,7 @@ CREATE TABLE Utilisateur(
   Identifiant varchar(16) NOT NULL,
   Mdp varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   ScoreUtil tinyint(1) UNSIGNED DEFAULT 50 NOT NULL,
-  IdMaison char(8) NOT NULL,
+  IdMaison smallint NOT NULL,
   PRIMARY KEY (Identifiant),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -50,7 +50,7 @@ CREATE TABLE Pièce(
   Surface smallint UNSIGNED NOT NULL,
   TempPièce tinyint DEFAULT 0 NOT NULL,
   ScorePièce tinyint UNSIGNED DEFAULT 50 NOT NULL,
-  IdMaison char(8) NOT NULL,
+  IdMaison smallint NOT NULL,
   PRIMARY KEY (IdPièce),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -68,8 +68,8 @@ CREATE TABLE Electroménager (
   IdElectro smallint AUTO_INCREMENT,
   NomElectro char(16) NOT NULL,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce char(8) NOT NULL,
-  IdMinuteur char(8),
+  IdPièce smallint NOT NULL,
+  IdMinuteur smallint,
   PRIMARY KEY (IdElectro),
   FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
@@ -79,8 +79,8 @@ CREATE TABLE Electroménager (
 CREATE TABLE Lumière (
   IdLumière smallint AUTO_INCREMENT,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce char(8) NOT NULL,
-  IdMinuteur char(8),
+  IdPièce smallint NOT NULL,
+  IdMinuteur smallint,
   PRIMARY KEY (IdLumière),
   FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
@@ -92,8 +92,8 @@ CREATE TABLE Chauffage (
   TempChauff tinyint DEFAULT 15 NOT NULL,
   TempExt tinyint DEFAULT 0 NOT NULL,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce char(8) NOT NULL,
-  IdMinuteur char(8),
+  IdPièce smallint NOT NULL,
+  IdMinuteur smallint,
   PRIMARY KEY (IdChauffage),
   FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
@@ -103,9 +103,9 @@ CREATE TABLE Chauffage (
 CREATE TABLE Energie (
   EnerCons smallint UNSIGNED DEFAULT 0 NOT NULL,
   DateHeureMinute DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
-  IdLumière char(8),
-  IdChauffage char(8),
-  IdElectro char(8),
+  IdLumière smallint,
+  IdChauffage smallint,
+  IdElectro smallint,
   FOREIGN KEY (IdLumière) REFERENCES Lumière (IdLumière),
   FOREIGN KEY (IdChauffage) REFERENCES Chauffage (Chauffage),
   FOREIGN KEY (IdElectro) REFERENCES Electroménager (IdElectro)
