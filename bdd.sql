@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS Minuteur;
 
 -- Maison
 CREATE TABLE Maison(
-  IdMaison smallint AUTO_INCREMENT,
+  IdMaison smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   Surface smallint UNSIGNED NOT NULL,
   PRIMARY KEY (IdMaison)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -38,26 +38,26 @@ CREATE TABLE Utilisateur(
   Identifiant varchar(16) NOT NULL,
   Mdp varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   ScoreUtil tinyint(1) UNSIGNED DEFAULT 50 NOT NULL,
-  IdMaison smallint NOT NULL,
+  IdMaison smallint UNSIGNED NOT NULL,
   PRIMARY KEY (Identifiant),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Pièce
 CREATE TABLE Pièce(
-  IdPièce smallint AUTO_INCREMENT,
+  IdPièce smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   NomPièce varchar(16) NOT NULL,
   Surface smallint UNSIGNED NOT NULL,
   TempPièce tinyint DEFAULT 0 NOT NULL,
   ScorePièce tinyint UNSIGNED DEFAULT 50 NOT NULL,
-  IdMaison smallint NOT NULL,
+  IdMaison smallint UNSIGNED NOT NULL,
   PRIMARY KEY (IdPièce),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Minuteur
 CREATE TABLE Minuteur (
-  IdMinuteur smallint AUTO_INCREMENT,
+  IdMinuteur smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   HeureDeb TIME DEFAULT '000000' NOT NULL,
   HeureFin TIME DEFAULT '000000' NOT NULL,
   PRIMARY KEY (IdMinuteur)
@@ -65,11 +65,11 @@ CREATE TABLE Minuteur (
 
 -- Electroménager
 CREATE TABLE Electroménager (
-  IdElectro smallint AUTO_INCREMENT,
+  IdElectro smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   NomElectro char(16) NOT NULL,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce smallint NOT NULL,
-  IdMinuteur smallint,
+  IdPièce smallint UNSIGNED NOT NULL,
+  IdMinuteur smallint UNSIGNED,
   PRIMARY KEY (IdElectro),
   FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
@@ -77,10 +77,10 @@ CREATE TABLE Electroménager (
 
 -- Lumière
 CREATE TABLE Lumière (
-  IdLumière smallint AUTO_INCREMENT,
+  IdLumière smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce smallint NOT NULL,
-  IdMinuteur smallint,
+  IdPièce smallint UNSIGNED NOT NULL,
+  IdMinuteur smallint UNSIGNED,
   PRIMARY KEY (IdLumière),
   FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
@@ -88,12 +88,12 @@ CREATE TABLE Lumière (
 
 -- Chauffage
 CREATE TABLE Chauffage (
-  IdChauffage smallint AUTO_INCREMENT,
+  IdChauffage smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   TempChauff tinyint DEFAULT 15 NOT NULL,
   TempExt tinyint DEFAULT 0 NOT NULL,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce smallint NOT NULL,
-  IdMinuteur smallint,
+  IdPièce smallint UNSIGNED NOT NULL,
+  IdMinuteur smallint UNSIGNED,
   PRIMARY KEY (IdChauffage),
   FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
@@ -101,15 +101,13 @@ CREATE TABLE Chauffage (
 
 -- Energie
 CREATE TABLE Energie (
+  IdEner INT UNSIGNED NOT NULL AUTO_INCREMENT,
   EnerCons smallint UNSIGNED DEFAULT 0 NOT NULL,
   DateHeureMinute DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
   IdLumière smallint,
   IdChauffage smallint,
   IdElectro smallint,
-  CONSTRAINT C_Id_Ener CHECK((IdLumière is NOT NULL AND IdChauffage is NULL AND IdElectro is NULL) OR (IdLumière is NULL AND IdChauffage is NOT NULL AND IdElectro is NULL) OR (IdLumière is NULL AND IdChauffage is NULL AND IdElectro is NOT NULL)),
-  FOREIGN KEY (IdLumière) REFERENCES Lumière (IdLumière),
-  FOREIGN KEY (IdChauffage) REFERENCES Chauffage (Chauffage),
-  FOREIGN KEY (IdElectro) REFERENCES Electroménager (IdElectro)
+  PRIMARY KEY (IdEner)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
