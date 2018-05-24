@@ -32,7 +32,6 @@ CREATE TABLE Maison(
   Surface smallint UNSIGNED NOT NULL,
   PRIMARY KEY (IdMaison)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 -- Utilisateur
 CREATE TABLE Utilisateur(
   Identifiant varchar(16) NOT NULL,
@@ -108,6 +107,13 @@ CREATE TABLE Energie (
   IdChauffage smallint,
   IdElectro smallint,
   PRIMARY KEY (IdEner)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- EnergieStock
+
+CREATE TABLE EnergieStock (
+  DateHeureMinute DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  PRIMARY KEY (DateHeureMinute)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
