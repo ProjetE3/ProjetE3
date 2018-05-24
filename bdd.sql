@@ -118,21 +118,19 @@ INSERT INTO Maison (Surface) VALUES
   (100);
   
 INSERT INTO Utilisateur (Identifiant, Mdp, IdMaison) VALUES
-  ('admin','admin',0);
+  ('admin','admin',1);
 
 INSERT INTO Pièce (NomPièce, Surface, IdMaison) VALUES
-  (Salon, 50, 0),
-  (Chambre, 25, 0),
-  (Cuisine, 25, 0);
-
---INSERT INTO Electroménager (IdElectro, IdPièce) VALUES
+  ('Salon', 50, 1),
+  ('Chambre', 25, 1),
+  ('Cuisine', 25, 1);
 
 INSERT INTO Lumière (IdPièce) VALUES
-  (0),
   (1),
-  (2);
+  (2),
+  (3);
 
 INSERT INTO Chauffage (IdPièce) VALUES
-  (0),
   (1),
-  (2);
+  (2),
+  (3);
