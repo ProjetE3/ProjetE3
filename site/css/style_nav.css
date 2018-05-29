@@ -1,3 +1,13 @@
+* {
+
+	margin: 0;
+}
+
+html, body {
+	height : 100%;
+}
+
+
 /* 
 	NAVIGATION DU MENU
 */
@@ -10,7 +20,7 @@
     z-index: 10; 
     top: 0;
     left: 0;
-    background-color: #5A5E6B; /* Couleur de fond */
+    background-color: #61656E; /* Couleur de fond */
     overflow-x: hidden; 
     padding-top: 7%; 
     transition: 0.5s;
@@ -20,11 +30,11 @@
  
 /* lien du menu */
 .menu-ouvert a {
-    padding: 5% 5% 5% 25%;
+    padding:3% 3% 3% 20%;
     font-family: 'Oswald', sans-serif;
     text-decoration: none;
     font-size: 120%;
-    color: #EFEFEF;
+    color: #CFD8DC;
     display: block;
     transition: 0.3s
     z-index: 10;
@@ -45,7 +55,7 @@
 
 /* La couleur du lien quand la souris passe dessus (vert)*/
 .menu-ouvert a:hover, .offcanvas a:focus{
-    color: #87b275;
+    color: #69BA73;
 }
 /* 
 /* Le bouton x */
@@ -60,18 +70,20 @@
 /* Bouton-menu */
 .bouton-menu {
     background-color: #dddbdb;
-    border-radius: 5%;
-    border : 10%;
+    border-radius : 10%;
+    border-right: 3px #dddbdb solid;
     float : bottom;
     display : block;
     border-width: 5%;
-   position: fixed;
+    position: fixed;
     z-index: 1;
+    margin-left: 2%;
+    margin-top : 1%;
 }
  
 .menu img{
     display: block;
-    color: #474646;
+    color: #61656E;
     text-align: center;
     padding: 2% 2%;
     max-width: 10%;
@@ -79,108 +91,3 @@
     height : 16px;
 }
 
-/* les boutons */
-.bouton img {
-    display: block;
-    color: #fff;
-    text-align: center;
-    padding: 2% 2%;
-    max-width: 10%;
-    text-decoration: none;
-    height : 16px;
-}
-
-/* Bouton-info */
-.bouton-info {
-    background-color: #7BD272;
-    border-radius: 5%;
-    border : 10%;
-    float : bottom;
-    display : block;
-    margin-top : 8%; 
-    border-width: 5%;
-    position: fixed;
-    z-index: 1;
-}
-
-/* Bouton-temperature */
-.bouton-temperature  {
-    background-color: #7BD272;
-    border-radius: 5%;
-    border : 10%;
-    float : bottom;
-    display : block;
-    margin-top : 16%; 
-    border-width: 5%;
-    position: fixed;
-    z-index: 1;
-}
-
-/* Bouton-lumiere */
-.bouton-lumiere {
-   background-color: #7BD272;
-    border-radius: 5%;
-    border : 10%;
-    float : bottom;
-    display : block;
-    margin-top : 24%; 
-    border-width: 10%;
-    position: fixed;
-    z-index: 1;
-}
- */
-/*MAIN*/
-#main {
-    transition: margin-left .5s;
-    padding: 20px;
-    overflow:hidden;
-    width:100%;
-    
-}
-body {
-  overflow-x: hidden;
-}
- 
-.accueil {
- 	width: 100%;
-        height: auto;
-        background-image: url("../images/piki.jpg");
-        background-size: cover;
-	filter:alpha(opacity=50);
-	opacity: 0.5;
-	-moz-opacity:0.5;
-	position: relative;
-        height: 100vh; 
-	display:block;
-} 
-
-html, h1, p {
-    font-family: 'Oswald', sans-serif;
-    display: block;
-    z-index: 5;
-    text-align: center;
-}
-
-h1 {
-   font-size: 200%;
-	color: #EFEFEF;
-	display : block;
-}
-
-p {
-    font-size: 100%;
-color: #EFEFEF;
-display : block;
-}
-
-h2 {
-	font-size: 200%;
-	color : #5A5E6B;
-	z-index:5;
-	display : block;
-}
-
-.information {
-	margin:auto;
-	display : block;
-}

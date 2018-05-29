@@ -1,0 +1,129 @@
+
+/* les boutons */
+.bouton img {
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 2% 2%;
+    max-width: 10%;
+    text-decoration: none;
+    height : 16px;
+    z-index : 4;
+}
+
+/* Bouton-info */
+.bouton-info {
+    background-color: #7BD272;
+    border-radius: 50%;
+    float : bottom;
+    display : block;
+    margin-top : 8%; 
+    position: fixed;
+    z-index: 3;
+    border: 3px #7BD272 solid;
+    margin-left: 2%
+
+}
+
+/* Bouton-temperature */
+.bouton-temperature  {
+    background-color: #7BD272;
+    border-radius: 50%;
+    float : bottom;
+    display : block;
+    margin-top : 16%; 
+    position: fixed;
+    z-index: 3;
+    border: 3px #7BD272 solid;
+    margin-left: 2%
+
+}
+
+
+.bouton-lumiere {
+   background-color: #FFF;
+    border-radius: 50%;
+    float : bottom;
+    display : block;
+    margin-top : 24%; 
+    position: fixed;
+    z-index: 3;
+    border: 3px #7BD272 double;
+	margin-left: 2%
+
+}
+
+/*
+	MAIN
+*/
+
+html, h1, p {
+    font-family: 'Oswald', sans-serif;
+    display: block;
+    z-index: 5;
+    text-align: center;
+}
+
+h1 {
+   	font-size: 200%;
+	color: #61656E;
+	display : block;
+}
+
+
+
+
+/*
+	FOOTER
+
+
+.footer-ferme {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+	position: fixed;
+        bottom: 0;
+	width:70%;
+	left:50%;
+	margin-left:-35%;
+	background-color :  #5A5E6B;
+	color : #FFF;
+}
+
+.footer-ouvert {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 150px;
+	position: fixed;
+        bottom: 0;
+	width:70%;
+	left:50%;
+	margin-left:-35%;
+	background-color :  #5A5E6B;
+	color : #FFF;
+}
+
+
+p{
+	align : center;
+}
+
+#triangle-haut{ 
+	align-items: center;
+	margin-bottom: 50px;
+	border-bottom: 16px solid #77c;/* couleur du triangle*/ 
+	border-left: 8px solid transparent; 
+	border-right: 8px solid transparent; 
+
+}
+
+#triangle-bas{ 
+	align-items: center;
+	margin-bottom: 150px;
+	border-top: 16px solid #77c;/* couleur du triangle*/ 
+	border-left: 8px solid transparent; 
+	border-right: 8px solid transparent; 
+}
+*/
