@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS Minuteur;
 CREATE TABLE Maison(
   IdMaison smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   Surface smallint UNSIGNED NOT NULL,
+  TempExt tinyint DEFAULT 0 NOT NULL,
   PRIMARY KEY (IdMaison)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 -- Utilisateur
@@ -89,7 +90,6 @@ CREATE TABLE Lumière (
 CREATE TABLE Chauffage (
   IdChauffage smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   TempChauff tinyint DEFAULT 15 NOT NULL,
-  TempExt tinyint DEFAULT 0 NOT NULL,
   Etat tinyint DEFAULT 0 NOT NULL,
   IdPièce smallint UNSIGNED NOT NULL,
   IdMinuteur smallint UNSIGNED,
@@ -122,7 +122,7 @@ CREATE TABLE EnergieStock (
 
 INSERT INTO Maison (Surface) VALUES
   (100);
-  
+
 INSERT INTO Utilisateur (Identifiant, Mdp, IdMaison) VALUES
   ('admin','admin',1);
 
