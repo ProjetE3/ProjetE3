@@ -1,6 +1,8 @@
+@charset "utf-8";
 
-
-/* les boutons */
+/* 
+	les boutons 
+*/
 .bouton img {
     display: block;
     color: #fff;
@@ -58,7 +60,7 @@
 	MAIN
 */
 
-html, h1, p {
+h1, p {
     font-family: 'Oswald', sans-serif;
     display: block;
     z-index: 5;
@@ -71,60 +73,39 @@ h1 {
 	display : block;
 }
 
-
-
-
 /*
 	FOOTER
-
-
-.footer-ferme {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 50px;
-	position: fixed;
-        bottom: 0;
-	width:70%;
-	left:50%;
-	margin-left:-35%;
-	background-color :  #5A5E6B;
-	color : #FFF;
-}
-
-.footer-ouvert {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 150px;
-	position: fixed;
-        bottom: 0;
-	width:70%;
-	left:50%;
-	margin-left:-35%;
-	background-color :  #5A5E6B;
-	color : #FFF;
-}
-
-
-p{
-	align : center;
-}
-
-#triangle-haut{ 
-	align-items: center;
-	margin-bottom: 50px;
-	border-bottom: 16px solid #77c;/* couleur du triangle*/ 
-	border-left: 8px solid transparent; 
-	border-right: 8px solid transparent; 
-
-}
-
-#triangle-bas{ 
-	align-items: center;
-	margin-bottom: 150px;
-	border-top: 16px solid #77c;/* couleur du triangle*/ 
-	border-left: 8px solid transparent; 
-	border-right: 8px solid transparent; 
-}
 */
+
+#footer {
+	display: flex;
+	height: 15%;
+    bottom: 0;
+	width:100%;
+}
+
+h3 {
+	font-size : 100%;
+	font-family: 'Oswald', sans-serif;
+}
+
+h4 {
+	font-size : 150%;
+	font-family: 'Oswald', sans-serif;
+}
+
+#footer_gauche {
+   width:45%; 
+   height:50%; 
+   float:left;
+   text-align: center;
+
+}
+
+
+#footer_droit {
+   width:45%; 
+   height:50%; 
+   float:right;
+   text-align:center;
+}

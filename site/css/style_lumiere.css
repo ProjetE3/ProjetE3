@@ -70,7 +70,10 @@ h1 {
 	display : block;
 }
 
-
+#main {
+	margin-top: 0;
+	width:100%;
+}
 
 
 /*

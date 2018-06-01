@@ -2,14 +2,24 @@
 <html>
 	<header> 	
 	<!-- en-tÃªte de la page -->
-	<meta charset="utf-8" />		
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
 	<link rel="stylesheet" href="css/style_nav.css"/>	
 	<link rel="stylesheet" href="css/style_chauffage.css"/>
 	<link rel="stylesheet" href="css/style_maison_chauffage.css"/>
-	<script src="js/temperature.js"> </script>
+	<script src="scripts/nav.js"> </script>
 	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">	
 	<title> HESTIA </title>	
 	</header>
+	
+<?php
+	try{
+		$bdd = new PDO('mysql:host=localhost;dbname=hestiadb;charset=utf8', 'root', '');
+	}
+	catch(Exception $e){
+		die('Erreur : ' . $e->getMessage());
+	}
+?>
+
 
 	<!-- NAVIGATION -->
 <div id="sideNavigation" class="menu-ouvert">
@@ -38,60 +48,115 @@
 		<a id="info" href="information.html"> 
 			<img class="bouton-info" src="images/info.png" alt="Information"/>  
 		</a>
-		<a id="temperature" href="temperature.html"> 
+		<a id="temperature" href="temperature.php"> 
 			<img class="bouton-temperature" src="images/thermometre-vert.png" alt="Thermometre"/>  
 		</a>
-		<a id="lumiere" href="lumiere.html"> 
+		<a id="lumiere" href="lumiere.php"> 
 			<img class="bouton-lumiere" src="images/ampoule.png" alt="Ampoule"/> 
 		</a>
 
 	</div>
 </div>
 
-<script>
-	function openNav() {
-		document.getElementById("sideNavigation").style.width = "250px";
-		document.getElementById("main").style.marginLeft = "0";
-	}
- 
-	function closeNav() {
-		document.getElementById("sideNavigation").style.width = "0";
-		document.getElementById("main").style.marginLeft = "0";
-	}
-</script>
-
+<a href="index.html" class="logo" ><img src="images/hestia2.png"></a>
 
 	<div id="main">
 		<div class="titre">
-			<h1>CHAUFFAGE</h1>
+			<br><h1>CHAUFFAGE</h1><br>
 		</div>	
 
 <div id="salon" class="overlay">
 	<div class="popup">
-		<h2>CHAUFFAGE DU SALON</h2>
-		<a class="close" href="temperature.html">&times;</a>
+		<br><h2>CHAUFFAGE DU SALON</h2>
+		<a class="close" href="temperature.php">&times;</a>
 		<div class="content">
+			
+			<div class="content_haut">
+			
+			<div class="allumer_eteindre">
+			<h5> Allumer / Eteindre </h5> <br>
 			<label class="switch">
+				
   				<input type="checkbox">
   				<span class="slider round"></span>
-				<h5> Allumer / Eteindre </h5>
+				
 			</label>
+			</div>
+			
+			<div class="temperature_piece" >
+				<h5> Température du salon </h5><br>
+				<h4>
+				<?php 
+			
+				$base = mysqli_connect("localhost", "root","","hestiadb");
+				if ($base) { 
+					$sql="SELECT `TempPièce` FROM `pièce` WHERE `pièce`.`IdPièce` = 1";
+					$resultat = mysqli_query($base,$sql);
+					if ($resultat == FALSE) { 
+						echo "Echec de l exécution de la requête.<br />"; 
+					} 
+					else { 
+						while ($ligne = mysqli_fetch_assoc($resultat)) { 
+							echo "".$ligne['TempPièce']." &#176 C";
+						} 
+					}
+				} 
+				
+				?>	
+				</h4>
+			
+			</div>
 
-			<div class="slidecontainer">
-  				<input type="range" min="1" max="100" value="50" class="glisser" id="myRange">
-			<span>Value:</span> <span id="demo" style="font-weight:bold;color:red"></span>
-			<script>
-			var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
+			</div>
+			
+			<div class="nouvelle_temperature">
+				<h5> Modifier la température </h5><br>
+				<h4>
+				<a href="temperature.php#salon" id="fleche" class="previous rond" onclick=
+				
+				<?php 
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-    output.innerHTML = this.value;
-}
+				$base = mysqli_connect("localhost", "root","","hestiadb");
+				if ($base) { 
+					$sql="UPDATE `pièce` SET `TempPièce` = `TempPièce` - 1 WHERE `pièce`.`IdPièce` = 1";
+					$resultat = mysqli_query($base,$sql);	
+				}
+					?>
+				>&#8249;</a>
+				
+				<?php 
+			
+				$base = mysqli_connect("localhost", "root","","hestiadb");
+				if ($base) { 
+					$sql="SELECT `TempPièce` FROM `pièce` WHERE `pièce`.`IdPièce` = 1";
+					$resultat = mysqli_query($base,$sql);
+					if ($resultat == FALSE) { 
+						echo "Echec de l exécution de la requête.<br />"; 
+					} 
+					else { 
+				  //fetch sur chaque ligne ramenée par la requête 
+						while ($ligne = mysqli_fetch_assoc($resultat)) { 
+							echo "".$ligne['TempPièce']." &#176 C ";
+						} 
+					}
+				} 
+				?>
+				
+				<a href="temperature.php#salon" id="fleche"  class="next rond" onclick=
+				
+				<?php 
 
-</script>
-			</div>		
+				$base = mysqli_connect("localhost", "root","","hestiadb");
+				if ($base) { 
+					$sql="UPDATE `pièce` SET `TempPièce` = `TempPièce` + 1 WHERE `pièce`.`IdPièce` = 1";
+					$resultat = mysqli_query($base,$sql);	
+				}
+				
+				?>
+				> &#8250;</a>
+				</h4>
+			</div>
+					
 		</div>
 	</div>
 </div>
@@ -123,7 +188,7 @@ slider.oninput = function() {
 	</div>
 </div>
 
-		<div class="map__image">
+		<div class="map_image">
 
 
 <svg 
@@ -144,8 +209,23 @@ slider.oninput = function() {
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 519.8021850585938 2.1009974479675293 L 519.8019409179688 737.6012573242188 L 2.302337646484375 737.6012573242188 L 2.302337646484375 2.3511195182800293 L 2.302337646484375 2.1009974479675293 z"/>
 	
-	<foreignobject y=47% width=50% height=150%>
+	<foreignobject y=38% width=50% height=150%>
 	<a class="button" href="#salon">SALON</a>
+	<h6><br>
+	<?php 
+			
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+		if ($base) { 
+			$sql="SELECT `TempPièce` FROM `pièce` WHERE `pièce`.`IdPièce` = 1";
+			$resultat = mysqli_query($base,$sql);
+			if ($resultat == TRUE) { 
+				while ($ligne = mysqli_fetch_assoc($resultat)) { 
+					echo "".$ligne['TempPièce']." &#176 C ";
+				} 
+			}
+		} 
+		?>
+	</h6>
 	</foreignobject>
   
   </g> <!-- drawing style -->
@@ -161,8 +241,27 @@ slider.oninput = function() {
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 2.10101318359375 L 1044.8023681640625 369.60101318359375 L 527.3023681640625 369.60101318359375 L 527.3023681640625 2.10101318359375 z"/>
 	
-	<foreignobject y=25% width=147% height=150%>
+	<foreignobject y=15% width=147% height=150%>
 	<a class="button" href="#chambre">CHAMBRE</a>
+	<h6><br>
+	<?php 
+			
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+		if ($base) { 
+			$sql="SELECT `TempPièce` FROM `pièce` WHERE `pièce`.`IdPièce` = 2";
+			$resultat = mysqli_query($base,$sql);
+			if ($resultat == FALSE) { 
+				echo "Echec de l exécution de la requête.<br />"; 
+			} 
+			else { 
+		  //fetch sur chaque ligne ramenée par la requête 
+				while ($ligne = mysqli_fetch_assoc($resultat)) { 
+					echo "".$ligne['TempPièce']." &#176 C ";
+				} 
+			}
+		} 
+		?>
+	</h6>
 	</foreignobject>
   
 </g> <!-- drawing style -->
@@ -177,8 +276,22 @@ slider.oninput = function() {
 <g transform="matrix(1, 0, 0, 1, 5.9476470947265625, 6.39886474609375)">
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 377.10101318359375 L 1044.8023681640625 737.6010131835938 L 527.3023071289062 737.60107421875 L 527.3023071289062 377.10101318359375 z"/>
-	<foreignobject y=70% width=147% height=150%>
+	<foreignobject y=63% width=147% height=150%>
 	<a class="button" href="#cuisine">CUISINE</a>
+	<h6><br>
+	<?php 			
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+		if ($base) { 
+			$sql="SELECT `TempPièce` FROM `pièce` WHERE `pièce`.`IdPièce` = 3";
+			$resultat = mysqli_query($base,$sql);
+			if ($resultat == TRUE) { 
+				while ($ligne = mysqli_fetch_assoc($resultat)) { 
+					echo "".$ligne['TempPièce']." &#176 C ";
+				} 
+			}
+		} 
+		?>
+	</h6>
 	</foreignobject>
   
 </g> <!-- drawing style -->
@@ -420,37 +533,33 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 
 	</div>
 
-<!--
 <div id="footer">	
-	<div id="pied-de-page" class="footer-ouvert">
-	<a href="javascript:void(0)" id="triangle-bas" onclick="closeFooter()">
-	</a>
-
-		BLABLA
+	<div id="footer_gauche">
+		<h3> Température extérieure </h3><br>
+		<h4>
+			<?php 
+				$base = mysqli_connect("localhost", "root","","hestiadb");
+				if ($base) { 
+					$sql="SELECT `TempExt` FROM `chauffage` WHERE `chauffage`.`IdPièce` = 1";
+					$resultat = mysqli_query($base,$sql);
+					if ($resultat == FALSE) { 
+						echo "Echec de l exécution de la requête.<br />"; 
+					} 
+					else { 
+				  //fetch sur chaque ligne ramenée par la requête 
+						while ($ligne = mysqli_fetch_assoc($resultat)) { 
+							echo "".$ligne['TempExt']." &#176 C ";
+						} 
+					}
+				} 
+			?>
+		</h4>
 	</div>
-
-
-	<div class="footer-ferme">
-		<a href="#" onclick="openFooter()"> 
-			<div id="triangle-haut"></div>
-
-		</a>
-		<p>COUCOU</p>
+	
+	<div id="footer_droit">
+		<h3> Score </h3>
 	</div>
-
-<script>
-	function openFooter() {
-		document.getElementById("pied-de-page").style.width = "250px";
-		document.getElementById("ok").style.marginBottom = "0";
-	}
- 
-	function closeFooter() {
-		document.getElementById("pied-de-page").style.width = "0";
-		document.getElementById("ok").style.marginBottom = "0";
-	}
-</script>
-
 </div>
--->
+
 
 </html>

@@ -3,16 +3,18 @@
 	<header> 	
 	<!-- en-tête de la page -->
 	<meta charset="utf-8" />		
+	
+	<!-- page css -->
 	<link rel="stylesheet" href="css/style_nav.css"/>	
 	<link rel="stylesheet" href="css/style_lumiere.css"/>
 	<link rel="stylesheet" href="css/style_maison_lumiere.css"/>
-	<script src="js/maison.js"></script>
+	
+	<!-- page javascript -->
+	<script src="scripts/nav.js"> </script>
+	<script src="scripts/changetexte.js"> </script>
+	
 	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">	
 	<title> Hestia </title>	
-	
-	
-	
-	
 	</header>
 
 	<!-- NAVIGATION -->
@@ -41,7 +43,7 @@
 		<a id="info" href="information.html"> 
 			<img class="bouton-info" src="images/info.png" alt="Information"/>  
 		</a>
-		<a id="temperature" href="temperature.html"> 
+		<a id="temperature" href="temperature.php"> 
 			<img class="bouton-temperature" src="images/thermometre.png" alt="Thermomètre"/>  
 		</a>
 		<a id="lumiere" href="lumiere.php"> 
@@ -51,24 +53,12 @@
 	</div>
 </div>
 
-<script>
-	function openNav() {
-		document.getElementById("sideNavigation").style.width = "250px";
-		document.getElementById("main").style.marginLeft = "0";
-	}
- 
-	function closeNav() {
-		document.getElementById("sideNavigation").style.width = "0";
-		document.getElementById("main").style.marginLeft = "0";
-	}
-
-		
-    </script>
+<a href="index.html" class="logo" ><img src="images/hestia2.png"></a>
 
 <!-- main -->
 	<div id="main">
 		<div class="titre">
-			<h1>LUMIERE</h1>
+			<br><h1>LUMIERE</h1><br>
 		</div>
 		<div class="map__image">
 
@@ -95,30 +85,12 @@
 	
 	<text> SALON </text>
 	
+	<input type="button" name="salon" id="nom" class="button" 
 	
- 
-		<input type="button" name="salon" id="nom" class="button" onclick="changetexte()" value=
-		<?php $base = mysqli_connect("localhost", "root","","hestiadb");
-			if ($base) { 
-				$sql="SELECT `Etat` FROM `lumière` WHERE `lumière`.`IdLumière` = 1";
-				$resultat = mysqli_query($base,$sql);
-				if ($resultat == FALSE) { 
-					echo "Echec de l exécution de la requête.<br />"; 
-				} 
-				else { 
-			  //fetch sur chaque ligne ramenée par la requête 
-					while ($ligne = mysqli_fetch_assoc($resultat)) { 
-						if( $ligne['Etat']==0){
-							echo "Allumer";
-						}
-						else {
-							echo "Eteindre";
-						}
-					} 
-				}
-		   } 
-		  
-		?>	>
+	value= "<?php include 'php/valeur.php'; ?>"
+		
+		onclick= <?php include 'php/allumer.php';?>
+    >
 			
 	</foreignobject>
   
@@ -384,81 +356,9 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 </g> <!-- drawing style -->
 </g> <!-- transform -->
 </g> <!-- default stroke -->
-</svg> <!-- bounding box -->
-
-	<script>
-	
-	function changetexte() {
-		if(document.getElementById("nom").value == "Allumer") {
-			// <?php 
-		Connexion à la base de données 
-		// $base = mysqli_connect("localhost", "root", "", "hestiadb"); 
-		// if ($base) { 
-		
-		// $sql = "UPDATE `lumière` SET `Etat` = '0' WHERE `lumière`.`IdLumière` = 1";
-		// $resultat = mysqli_query($base,$sql);		
-		// }
-		// ?>
-			document.getElementById("nom").value = "Eteindre";
-		} 
-		else {		
-		
-		document.getElementById("nom").value = "Allumer";
-		
-		// <?php 
-		Connexion à la base de données 
-		// $base = mysqli_connect("localhost", "root", "", "hestiadb"); 
-		// if ($base) { 
-		
-		// $sql = "UPDATE `lumière` SET `Etat` = '1' WHERE `lumière`.`IdLumière` = 1";
-		// $resultat = mysqli_query($base,$sql);		
-		
-		// }
-		
-		// ?>
-		}
-	}
-	
-    </script>
-
-
+</svg> <!-- bounding box -->	
+    
 		</div>
 	</div>
-
-	</div>
-
-
-<!--
-<div id="footer">	
-	<div id="pied-de-page" class="footer-ouvert">
-	<a href="javascript:void(0)" id="triangle-bas" onclick="closeFooter()">
-	</a>
-
-		BLABLA
-	</div>
-
-
-	<div class="footer-ferme">
-		<a href="#" onclick="openFooter()"> 
-			<div id="triangle-haut"></div>
-
-		</a>
-		<p>COUCOU</p>
-	</div>
-
-<script>
-	function openFooter() {
-		document.getElementById("pied-de-page").style.width = "250px";
-		document.getElementById("ok").style.marginBottom = "0";
-	}
- 
-	function closeFooter() {
-		document.getElementById("pied-de-page").style.width = "0";
-		document.getElementById("ok").style.marginBottom = "0";
-	}
-</script>
-
-</div>
--->
 
 </html>

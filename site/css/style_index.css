@@ -56,7 +56,6 @@
 /*MAIN*/
 #main {
     transition: margin-left .5s;
-    padding: 20px;
     overflow:hidden;
     width:100%;
     
@@ -66,28 +65,18 @@ body {
 }
  
 html{
-	margin-top : 0;
-	margin-left : 0;
-        background-size: cover;
-	background-image: url(../images/light.jpg);
-	background-attachment: fixed;
-	background-position : top left;
-	background-repeat: no-repeat;
-	display : block;
-	height: auto;
-	width : 100%;
-	z-index: 2;
-    
-
+	background-image: url(../images/test9.png);
+	background-repeat: repeat;
 } 
 
-html, h1, p {
+html, p {
 
     font-family: 'Oswald', sans-serif;
     display: block;
     z-index: 5;
     text-align: center;
     vertical-align:center;
+	color:#61656E;
 }
 
 .accueil{
@@ -96,6 +85,12 @@ position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
 
+}
+
+.accueil img{
+	position: center;
+	height:400px;
+	
 }
 h1 {
    	font-size: 200%;
@@ -106,7 +101,7 @@ h1 {
 
 p {
    	font-size: 100%;
-	color: #EFEFEF;
+	color: #61656E;
 	display : block;
 }
 
