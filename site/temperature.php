@@ -10,16 +10,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">	
 	<title> HESTIA </title>	
 	</header>
-	
-<?php
-	try{
-		$bdd = new PDO('mysql:host=localhost;dbname=hestiadb;charset=utf8', 'root', '');
-	}
-	catch(Exception $e){
-		die('Erreur : ' . $e->getMessage());
-	}
-?>
-
 
 	<!-- NAVIGATION -->
 <div id="sideNavigation" class="menu-ouvert">
@@ -112,8 +102,9 @@
 			<div class="nouvelle_temperature">
 				<h5> Modifier la température </h5><br>
 				<h4>
-				<a href="temperature.php#salon" id="fleche" class="previous rond" onclick=
-				
+			<form action="php/temperature/temp.php" method="post">
+			<input type="submit" name="salon_temp" class="button" href="temperature.php#salon" id="fleche" class="previous rond" value= 
+	
 				<?php 
 
 				$base = mysqli_connect("localhost", "root","","hestiadb");
@@ -121,10 +112,14 @@
 					$sql="UPDATE `pièce` SET `TempPièce` = `TempPièce` - 1 WHERE `pièce`.`IdPièce` = 1";
 					$resultat = mysqli_query($base,$sql);	
 				}
-					?>
-				>&#8249;</a>
-				
+				?>
+				&#8249;
+			/>
+			</form>
+			</h4>
+			
 				<?php 
+				
 			
 				$base = mysqli_connect("localhost", "root","","hestiadb");
 				if ($base) { 
@@ -142,8 +137,11 @@
 				} 
 				?>
 				
-				<a href="temperature.php#salon" id="fleche"  class="next rond" onclick=
-				
+			
+				<h4>
+			<form action="php/temperature/temp1.php" method="post">
+			<input type="submit" name="salon_temp" class="button" href="temperature.php#salon" id="fleche" class="next rond" value= 
+	
 				<?php 
 
 				$base = mysqli_connect("localhost", "root","","hestiadb");
@@ -151,10 +149,11 @@
 					$sql="UPDATE `pièce` SET `TempPièce` = `TempPièce` + 1 WHERE `pièce`.`IdPièce` = 1";
 					$resultat = mysqli_query($base,$sql);	
 				}
-				
 				?>
-				> &#8250;</a>
-				</h4>
+				&#8250;
+			/>
+			</form>
+			</h4>
 			</div>
 					
 		</div>

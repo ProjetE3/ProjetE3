@@ -11,8 +11,15 @@
   border-radius: 20px/50px;
   text-decoration: none;
   cursor: pointer;
+  background: #808080;
   transition: all 0.3s ease-out;
 }
 .button:hover {
   background: #7BD272;
+}
+
+
+#nom {
+	font-size: 200%;
+	color : #FFF;
 }

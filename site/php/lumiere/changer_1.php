@@ -9,10 +9,10 @@ catch(Exception $e)
 }
 $rep=$bdd->query('SELECT Etat FROM lumière WHERE IdPièce=1');
 while($i=$rep->fetch()){
-	if ($i['Etat']=0){$bdd->exec('UPDATE lumière SET Etat = 1 WHERE IdPièce=1')}
-	else{$bdd->exec('UPDATE lumière SET Etat = 0 WHERE IdPièce=1')}
-	
+	if ($i['Etat']==0){$bdd->exec('UPDATE lumière SET Etat = 1 WHERE IdPièce=1');}
+	else{$bdd->exec('UPDATE lumière SET Etat = 0 WHERE IdPièce=1');}
+}
 $rep->closeCursor();
 
-header('Location: ../lumiere.php');
+header('Location: ../../lumiere.php');
 ?>
