@@ -75,6 +75,7 @@ h1 {
 */
 
 .graph {
-  margin: auto;
+  display : block;
+  margin-left: : 50%;
 
 }

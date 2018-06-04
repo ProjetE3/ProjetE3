@@ -14,7 +14,7 @@
   <div id="sideNavigation" class="menu-ouvert">
   	<a href="javascript:void(0)" class="bouton-croix" onclick="closeNav()">&times;</a>
 
-  	<li><a href="Consommation.html">CONSOMMATION</a>
+  	<li><a href="Consommation.php">CONSOMMATION</a>
   	<ul >
   		<li><a href="Consommation.html#Chauffage">CHAUFFAGE</a></li>
   		<li><a href="Consommation.html#Lumi�re">LUMI�RE</a></li>
@@ -56,7 +56,7 @@
       </div>
       <div class="graph">
         <?php
-          echo "<img src='graph1.php'/>;
+          echo "<img src='graph1.php'/>";
         ?>
   		</div>
     </div>
