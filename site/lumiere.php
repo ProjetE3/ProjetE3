@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html>
 	<header> 	
 	<!-- en-tête de la page -->
@@ -11,9 +11,8 @@
 	
 	<!-- page javascript -->
 	<script src="scripts/nav.js"> </script>
-	<script src="scripts/changetexte.js"> </script>
 	
-	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">	
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"/>	
 	<title> Hestia </title>	
 	</header>
 
@@ -81,16 +80,33 @@
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 519.8021850585938 2.1009974479675293 L 519.8019409179688 737.6012573242188 L 2.302337646484375 737.6012573242188 L 2.302337646484375 2.3511195182800293 L 2.302337646484375 2.1009974479675293 z"/>
 	
-	<foreignobject y=47% width=50% height=150%>
+	<foreignobject y=43% width=50% height=150%>
 	
-	<text> SALON </text>
+	<div id="nom"> SALON </div>
+	<br>
+	<form action="php/lumiere/changer_1.php" method="post">
+	<input type="submit" name="salon" class="button" value= 
 	
-	<input type="button" name="salon" id="nom" class="button" 
-	
-	value= "<?php include 'php/valeur.php'; ?>"
-		
-		onclick= <?php include 'php/allumer.php';?>
-    >
+	<?php
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+			if ($base) { 
+				$sql="SELECT `Etat` FROM `lumière` WHERE `lumière`.`IdLumière` = 1";
+				$resultat = mysqli_query($base,$sql);
+				if ($resultat == TRUE) { 
+					while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if( $ligne['Etat']==0){
+							echo "Allumer";
+						}
+						else {
+							echo "Eteindre";
+						}
+					} 
+				}
+		   } 
+		?>
+
+		/>
+		</form>
 			
 	</foreignobject>
   
@@ -109,8 +125,32 @@
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 2.10101318359375 L 1044.8023681640625 369.60101318359375 L 527.3023681640625 369.60101318359375 L 527.3023681640625 2.10101318359375 z"/>
 	
-	<foreignobject y=25% width=147% height=150%>
-	<a class="button" href="#chambre">CHAMBRE</a>
+	<foreignobject y=19% width=147% height=150%>
+	<div id="nom"> CHAMBRE </div>
+	<br>
+	<form action="php/lumiere/changer_2.php" method="post">
+	<input type="submit" name="salon" class="button" value= 
+	
+	<?php
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+			if ($base) { 
+				$sql="SELECT `Etat` FROM `lumière` WHERE `lumière`.`IdLumière` = 2";
+				$resultat = mysqli_query($base,$sql);
+				if ($resultat == TRUE) { 
+					while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if( $ligne['Etat']==0){
+							echo "Allumer";
+						}
+						else {
+							echo "Eteindre";
+						}
+					} 
+				}
+		   } 
+		?>
+
+		/>
+		</form>
 	</foreignobject>
   
 </g> <!-- drawing style -->
@@ -125,8 +165,32 @@
 <g transform="matrix(1, 0, 0, 1, 5.9476470947265625, 6.39886474609375)">
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 377.10101318359375 L 1044.8023681640625 737.6010131835938 L 527.3023071289062 737.60107421875 L 527.3023071289062 377.10101318359375 z"/>
-	<foreignobject y=70% width=147% height=150%>
-	<a class="button" href="#cuisine">CUISINE</a>
+	<foreignobject y=65% width=147% height=150%>
+	<div id="nom"> CUISINE </div>
+	<br>
+	<form action="php/lumiere/changer_3.php" method="post">
+	<input type="submit" name="salon" class="button" value= 
+	
+	<?php
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+			if ($base) { 
+				$sql="SELECT `Etat` FROM `lumière` WHERE `lumière`.`IdLumière` = 3";
+				$resultat = mysqli_query($base,$sql);
+				if ($resultat == TRUE) { 
+					while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if( $ligne['Etat']==0){
+							echo "Allumer";
+						}
+						else {
+							echo "Eteindre";
+						}
+					} 
+				}
+		   } 
+		?>
+
+		/>
+		</form>
 	</foreignobject>
   
 </g> <!-- drawing style -->
