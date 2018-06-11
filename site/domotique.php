@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<header> 	
-	<!-- en-tête de la page -->
+	<!-- en-tÃªte de la page -->
 	<meta charset="utf-8" />		
 	<link rel="stylesheet" href="css/style_nav.css"/>
-	<link rel="stylesheet" href="css/style_index.css"/>	
+	<link rel="stylesheet" href="css/style_domotique.css"/>	
 	<script src="scripts/nav.js"> </script>
 	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">	
 	<title> HESTIA </title>	
@@ -18,11 +18,11 @@
 	<li><a href="Consommation.php">CONSOMMATION</a>
 	<ul >
 		<li><a href="Consommation.php#Chauffage">CHAUFFAGE</a></li>
-		<li><a href="Consommation.php#Lumière">LUMIÈRE</a></li>
+		<li><a href="Consommation.php#LumiÃ¨re">LUMIÃˆRE</a></li>
 	</ul>
 	</li>
 
-	<li><a href="domotique.php">DOMOTIQUE</a></li>
+	<li><a href="Domotique.php">DOMOTIQUE</a></li>
 </div>
 
 <!-- BOUTONS DU MENU -->
@@ -39,7 +39,7 @@
 			<img class="bouton-info" src="images/info.png" alt="Information"/>  
 		</a>
 		<a id="temperature" href="temperature.php"> 
-			<img class="bouton-temperature" src="images/thermometre.png" alt="Thermomètre"/>  
+			<img class="bouton-temperature" src="images/thermometre.png" alt="ThermomÃ¨tre"/>  
 		</a>
 		<a id="lumiere" href="lumiere.php"> 
 			<img class="bouton-lumiere" src="images/ampoule.png" alt="Ampoule"/> 
@@ -48,12 +48,18 @@
 	</div>
 </div>
 
+<a href="index.html" class="logo" ><img src="images/hestia2.png"></a>
 
 <div id="main">
-	<div class="accueil">
-		<img src="images/hestia2.png"></a>
-		<p> Ce site EST </p>
-	</div>
+		<div class="titre">
+			<br><h1>DOMOTIQUE</h1><br>
+		</div>	
+		<div class="lumiere">
+			<h1> LUMIÃˆRE <h1>
+		</div>
+		<div class="chauffage">
+			<h1> CHAUFFAGE <h1>
+		</div>
 	
 </div>
 

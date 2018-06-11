@@ -37,7 +37,7 @@ html, body {
     font-family: 'Oswald', sans-serif;
     text-decoration: none;
     font-size: 120%;
-    color: #CFD8DC;
+    color: #FFF;
     display: block;
     transition: 0.3s
     z-index: 10;
@@ -58,7 +58,7 @@ html, body {
 
 /* La couleur du lien quand la souris passe dessus (vert)*/
 .menu-ouvert a:hover, .offcanvas a:focus{
-    color: #69BA73;
+    color: #7BD272;
 }
 /* 
 /* Le bouton x */

@@ -61,13 +61,13 @@ html, h1, p {
     font-family: 'Oswald', sans-serif;
     display: block;
     z-index: 5;
-    text-align: center;
 }
 
 h1 {
    	font-size: 200%;
-	color: #61656E;
+	color: #5A5E6B;
 	display : block;
+	margin-left: 47%;
 }
 
 #main {
@@ -75,6 +75,49 @@ h1 {
 	width:100%;
 }
 
+
+.tout {
+	margin-left : 5%;
+	
+}
+
+h3 {
+	font-size : 100%;
+	font-family: 'Oswald', sans-serif;
+	color: #5A5E6B;
+}
+/*
+	BOUTON DROITE
+*/
+
+.bouton-tout {
+	border: 2px solid #7BD272;
+	cursor : pointer;
+    background-color : #FFF;
+	display: block;
+	padding : 2%;
+	text-align:center;
+	width: 20px;
+	height : 20px;
+	border-radius : 50%;
+	float:left;
+}
+
+.bouton-tout:disabled {
+	background-color: #7BD272;
+	width: 5px;
+	height : 5px;
+}
+
+
+
+#texte-degre {
+	margin-right: 20%;
+}
+
+#texte-tout {
+	margin-left:10%;
+}
 
 
 /*

@@ -1,8 +1,9 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
+	
 	<header> 	
 	<!-- en-tête de la page -->
-	<meta charset="utf-8" />		
+			
 	
 	<!-- page css -->
 	<link rel="stylesheet" href="css/style_nav.css"/>	
@@ -20,14 +21,14 @@
 <div id="sideNavigation" class="menu-ouvert">
 	<a href="javascript:void(0)" class="bouton-croix" onclick="closeNav()">&times;</a>
 
-	<li><a href="Consommation.html">CONSOMMATION</a>
+	<li><a href="Consommation.php">CONSOMMATION</a>
 	<ul >
-		<li><a href="Consommation.html#Chauffage">CHAUFFAGE</a></li>
-		<li><a href="Consommation.html#Lumière">LUMIÈRE</a></li>
+		<li><a href="Consommation.php#Chauffage">CHAUFFAGE</a></li>
+		<li><a href="Consommation.php#Lumière">LUMIÃˆRE</a></li>
 	</ul>
 	</li>
 
-	<li><a href="Domotique.html">DOMOTIQUE</a></li>
+	<li><a href="domotique.php">DOMOTIQUE</a></li>
 </div>
 
 <!-- BOUTONS DU MENU -->
@@ -57,9 +58,12 @@
 <!-- main -->
 	<div id="main">
 		<div class="titre">
-			<br><h1>LUMIERE</h1><br>
+			<br><h1>LUMIÃˆRE</h1><br>
 		</div>
-		<div class="map__image">
+		
+		<div class="milieu">
+		
+		<div class="map_image">
 
 
 <svg 
@@ -70,8 +74,8 @@
      xmlns:ev="http://www.w3.org/2001/xml-events"
      x="0px"
      y="0px"
-     width=40%
-     height=40%
+     width=140%
+     height=140%
      viewBox="0 0 1059 753"
      >
 
@@ -80,7 +84,7 @@
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 519.8021850585938 2.1009974479675293 L 519.8019409179688 737.6012573242188 L 2.302337646484375 737.6012573242188 L 2.302337646484375 2.3511195182800293 L 2.302337646484375 2.1009974479675293 z"/>
 	
-	<foreignobject y=43% width=50% height=150%>
+	<foreignobject x=20% y=43% width=50% height=150%>
 	
 	<div id="nom"> SALON </div>
 	<br>
@@ -125,7 +129,7 @@
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 2.10101318359375 L 1044.8023681640625 369.60101318359375 L 527.3023681640625 369.60101318359375 L 527.3023681640625 2.10101318359375 z"/>
 	
-	<foreignobject y=19% width=147% height=150%>
+	<foreignobject x=68% y=19% width=147% height=150%>
 	<div id="nom"> CHAMBRE </div>
 	<br>
 	<form action="php/lumiere/changer_2.php" method="post">
@@ -165,7 +169,7 @@
 <g transform="matrix(1, 0, 0, 1, 5.9476470947265625, 6.39886474609375)">
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 377.10101318359375 L 1044.8023681640625 737.6010131835938 L 527.3023071289062 737.60107421875 L 527.3023071289062 377.10101318359375 z"/>
-	<foreignobject y=65% width=147% height=150%>
+	<foreignobject x=68% y=65% width=147% height=150%>
 	<div id="nom"> CUISINE </div>
 	<br>
 	<form action="php/lumiere/changer_3.php" method="post">
@@ -423,6 +427,54 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 </svg> <!-- bounding box -->	
     
 		</div>
-	</div>
+	
 
+	<div class="droite">
+		
+		<div class="tout">
+			<h4>   ContrÃ´le </h4><br>
+			 <form action="php/lumiere/lum.php" method="post">
+				<br>
+				<button type="submit" class="bouton-tout" id="tout-eteindre" name="tout-eteindre"  value=""
+				<?php
+					$base = mysqli_connect("localhost", "root","","hestiadb");
+					if ($base) { 
+						$sql="SELECT `Etat` FROM `lumière`";
+						$resultat = mysqli_query($base,$sql);
+						$i=0;
+						if ($resultat == TRUE) { 
+							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+								if($i==0){
+									$i1=$ligne['Etat'];
+									$i++;
+								}else if($i==1){
+									$i2=$ligne['Etat'];
+								$i++;}
+							else{$i3=$ligne['Etat'];}
+							} 
+						}
+					}
+						if($i1==0 && $i1==$i2 && $i2==$i3){
+							$i=0;
+							echo "disabled";
+						}else if($i1==1 && $i1==$i2 && $i2==$i3){
+							$i=1;
+						}else{
+							$i=2;
+						}
+					?>    
+				/></button><h3 id="texte-tout">Tout Ã©teindre</h3> 
+				<br>
+				<button type="submit" id="tout-allumer" class="bouton-tout" name="tout-allumer"  value=""
+				<?php
+					if($i==1){echo "disabled";}
+					 ?>  
+			    /> </button><h3 id="texte-tout">Tout allumer </h3> <br><br><br><br><br><br>
+				
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	</div>
 </html>

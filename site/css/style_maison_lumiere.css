@@ -23,3 +23,25 @@
 	font-size: 200%;
 	color : #FFF;
 }
+
+
+.milieu {
+	display: block;
+	width: 100%;
+}
+
+.map_image{
+	display : block;
+	float: left;
+	margin-left:15%;
+}
+
+.droite {
+	display: block;
+	margin-left : 53%;
+	margin-right:15%;
+	background : rgba(221,219,219, 0.3);
+	height : 200%;
+	border-radius: 5px;
+	
+}
