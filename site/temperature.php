@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html>
-	<header> 	
+	<header>
 	<!-- en-t√™te de la page -->
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
-	<link rel="stylesheet" href="css/style_nav.css"/>	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="css/style_nav.css"/>
 	<link rel="stylesheet" href="css/style_chauffage.css"/>
 	<link rel="stylesheet" href="css/style_maison_chauffage.css"/>
 	<script src="scripts/nav.js"> </script>
-	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">	
-	<title> HESTIA </title>	
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+	<title> HESTIA </title>
 	</header>
 
 	<!-- NAVIGATION -->
 <div id="sideNavigation" class="menu-ouvert">
 	<a href="javascript:void(0)" class="bouton-croix" onclick="closeNav()">&times;</a>
 
-	<li><a href="Consommation.php">CONSOMMATION</a>
-	<ul >
-		<li><a href="Consommation.php#Chauffage">CHAUFFAGE</a></li>
-		<li><a href="Consommation.php#LumiËre">LUMI√àRE</a></li>
-	</ul>
+	<li><a href="Consommation">CONSOMMATION</a>
+		<ul >
+			<li><a href="Consommation_chau&clim">CHAUFFAGE</a></li>
+			<li><a href="Consommation_lum">LUMIERE</a></li>
+		</ul>
 	</li>
 
-	<li><a href="domotique.php">DOMOTIQUE</a></li>
+	<li><a href="Domotique">DOMOTIQUE</a></li>
 </div>
 
+
 <!-- BOUTONS DU MENU -->
+
 <div class="boutons">
 	<div class="menu">
-  		<a href="#" onclick="openNav()"> 
-		<img class="bouton-menu" src="images/menu.png" alt="Menu"/> 
-  		</a>
+		<a href="#" onclick="openNav()">
+			<img class="bouton-menu" src="images/menu.png" alt="Menu"/>
+
+		</a>
 	</div>
 
 	<div class="bouton">
-		<a id="info" href="information.html"> 
-			<img class="bouton-info" src="images/info.png" alt="Information"/>  
+		<a id="info" href="Information">
+			<img class="bouton-info" src="images/info.png" alt="Information"/>
 		</a>
-		<a id="temperature" href="temperature.php"> 
-			<img class="bouton-temperature" src="images/thermometre-vert.png" alt="Thermometre"/>  
+		<a id="temperature" href="Temperature">
+			<img class="bouton-temperature" src="images/thermometre-vert.png" alt="Thermometre"/>
 		</a>
-		<a id="lumiere" href="lumiere.php"> 
-			<img class="bouton-lumiere" src="images/ampoule.png" alt="Ampoule"/> 
+		<a id="lumiere" href="Lumiere">
+			<img class="bouton-lumiere" src="images/ampoule.png" alt="Ampoule"/>
 		</a>
 
 	</div>
@@ -52,48 +55,48 @@
 	<div id="main">
 		<div class="titre">
 			<br><h1>CHAUFFAGE</h1><br>
-		</div>	
+		</div>
 
-	
+
 
 <div id="salon" class="overlay">
 	<div class="popup">
 		<br><h2>CHAUFFAGE DU SALON</h2>
 		<a class="close" href="temperature.php">&times;</a>
 		<div class="content">
-			
+
 			<div class="content_haut">
-			
+
 			<div class="allumer_eteindre">
 			<h5><?php
 					$base = mysqli_connect("localhost", "root","","hestiadb");
-					if ($base) { 
+					if ($base) {
 						$sql="SELECT `Etat` FROM `chauffage` WHERE `chauffage`.`IdChauffage` = 1";
 						$resultat = mysqli_query($base,$sql);
-						if ($resultat == TRUE) { 
-							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if ($resultat == TRUE) {
+							while ($ligne = mysqli_fetch_assoc($resultat)) {
 								if( $ligne['Etat']==0){
 									echo "Eteint";
 								}
 								else{
 									echo "Allum√©";
 								}
-								
-							} 
+
+							}
 						}
-					} 
+					}
 					?></h5> <br>
-						
+
 			<form action="php/temperature/temp.php" method="post">
 			<label  class="switch"><input type="submit" >
-			<input  type="checkbox" id="check1" 
+			<input  type="checkbox" id="check1"
 				<?php
 					$base = mysqli_connect("localhost", "root","","hestiadb");
-					if ($base) { 
+					if ($base) {
 						$sql="SELECT `Etat` FROM `chauffage` WHERE `chauffage`.`IdChauffage` = 1";
 						$resultat = mysqli_query($base,$sql);
-						if ($resultat == TRUE) { 
-							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if ($resultat == TRUE) {
+							while ($ligne = mysqli_fetch_assoc($resultat)) {
 								if( $ligne['Etat']==1){
 									echo "checked";
 									$test=1;
@@ -101,72 +104,72 @@
 								else{
 									echo "";
 									$test=0;
-								}	
-							} 
+								}
+							}
 						}
-					} 
+					}
 					?>
 				> </input>
 			</input>
-			
+
   			<span class="slider round"></span>
 			</label>
-			</form>	
+			</form>
 			</div>
-			
-			
+
+
 			<div class="temperature_piece" >
 				<h5> Temp√©rature du salon </h5><br>
 				<h4>
-				<?php 
-			
+				<?php
+
 				$base = mysqli_connect("localhost", "root","","hestiadb");
-				if ($base) { 
-					$sql="SELECT `TempPiËce` FROM `piËce` WHERE `piËce`.`IdPiËce` = 1";
+				if ($base) {
+					$sql="SELECT `TempPiece` FROM `piece` WHERE `piece`.`IdPiece` = 1";
 					$resultat = mysqli_query($base,$sql);
 					if ($resultat == TRUE) {
-						while ($ligne = mysqli_fetch_assoc($resultat)) { 
-							echo "".$ligne['TempPiËce']." &#176 C";
-						} 
+						while ($ligne = mysqli_fetch_assoc($resultat)) {
+							echo "".$ligne['TempPiece']." &#176 C";
+						}
 					}
-				} 
-				
-				?>	
+				}
+
+				?>
 				</h4>
-			
+
 			</div>
 
 			</div>
-			
-			
+
+
 			<div id="nouvelle_temperature" <?php if($test==0){echo 'style="visibility:hidden"';}?>>
 				<h5> Modifier la temp√©rature </h5><br>
 			<form action="php/temperature/temp_1.php" method="post">
 			<h4>
-			
-			<input type="submit" class="fleche" name="moins" class="previous rond" value="&#8249;" /> 
-			
-				<?php 
-				
-			
+
+			<input type="submit" class="fleche" name="moins" class="previous rond" value="&#8249;" />
+
+				<?php
+
+
 				$base = mysqli_connect("localhost", "root","","hestiadb");
-				if ($base) { 
-					$sql="SELECT `TempChauff` FROM `chauffage` WHERE `chauffage`.`IdPiËce` = 1";
+				if ($base) {
+					$sql="SELECT `TempChauff` FROM `chauffage` WHERE `chauffage`.`IdPiece` = 1";
 					$resultat = mysqli_query($base,$sql);
 					if ($resultat == TRUE) {
-						while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						while ($ligne = mysqli_fetch_assoc($resultat)) {
 							echo "".$ligne['TempChauff']." &#176 C ";
-						} 
+						}
 					}
-				} 
+				}
 				?>
-				
-			<input type="submit" class="fleche" name="plus" class="next rond" value="&#8250;" /> 
+
+			<input type="submit" class="fleche" name="plus" class="next rond" value="&#8250;" />
 			</h4>
 			</form>
 			</div>
-		
-					
+
+
 		</div>
 	</div>
 </div>
@@ -176,38 +179,38 @@
 		<br><h2>CHAUFFAGE DE LA CHAMBRE</h2>
 		<a class="close" href="temperature.php">&times;</a>
 		<div class="content">
-			
+
 			<div class="content_haut">
-			
+
 			<div class="allumer_eteindre">
 			<h5><?php
 					$base = mysqli_connect("localhost", "root","","hestiadb");
-					if ($base) { 
+					if ($base) {
 						$sql="SELECT `Etat` FROM `chauffage` WHERE `chauffage`.`IdChauffage` = 2";
 						$resultat = mysqli_query($base,$sql);
-						if ($resultat == TRUE) { 
-							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if ($resultat == TRUE) {
+							while ($ligne = mysqli_fetch_assoc($resultat)) {
 								if( $ligne['Etat']==0){
 									echo "Eteint";
 								}
 								else{
 									echo "Allum√©";
 								}
-								
-							} 
+
+							}
 						}
-					} 
+					}
 					?></h5> <br>
 			<label class="switch"><form action="php/temperature/temp2.php" method="post">
 			<input type="submit">
-			<input type="checkbox" 
+			<input type="checkbox"
 				<?php
 					$base = mysqli_connect("localhost", "root","","hestiadb");
-					if ($base) { 
+					if ($base) {
 						$sql="SELECT `Etat` FROM `chauffage` WHERE `chauffage`.`IdChauffage` = 2";
 						$resultat = mysqli_query($base,$sql);
-						if ($resultat == TRUE) { 
-							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if ($resultat == TRUE) {
+							while ($ligne = mysqli_fetch_assoc($resultat)) {
 								if( $ligne['Etat']==1){
 									echo "checked";
 									$test=1;
@@ -216,69 +219,69 @@
 									echo "";
 									$test=0;
 								}
-								
-							} 
+
+							}
 						}
-					} 
+					}
 					?>
 				> </input></input>
-			
+
   			<span class="slider round"></span>
-			
+
 			</label>
-			</form>	
+			</form>
 			</div>
-			
-			
+
+
 			<div class="temperature_piece" >
 				<h5> Temp√©rature de la chambre</h5><br>
 				<h4>
-				<?php 
-			
+				<?php
+
 				$base = mysqli_connect("localhost", "root","","hestiadb");
-				if ($base) { 
-					$sql="SELECT `TempPiËce` FROM `piËce` WHERE `piËce`.`IdPiËce` = 2";
+				if ($base) {
+					$sql="SELECT `TempPiece` FROM `piece` WHERE `piece`.`IdPiece` = 2";
 					$resultat = mysqli_query($base,$sql);
 					if ($resultat == TRUE) {
-						while ($ligne = mysqli_fetch_assoc($resultat)) { 
-							echo "".$ligne['TempPiËce']." &#176 C";
-						} 
+						while ($ligne = mysqli_fetch_assoc($resultat)) {
+							echo "".$ligne['TempPiece']." &#176 C";
+						}
 					}
-				} 
-				
-				?>	
+				}
+
+				?>
 				</h4>
-			
+
 			</div>
 
 			</div>
-			
+
 			<div id="nouvelle_temperature" <?php if($test==0){echo 'style="visibility:hidden"';}?>>
 				<h5> Modifier la temp√©rature </h5><br>
-				
+
 			<form action="php/temperature/temp_2.php" method="post">
 			<h4>
-			<input type="submit" class="fleche" name="moins2" class="previous rond" value="&#8249;" /> 
-			
-				<?php 
-				
-			
+			<input type="submit" class="fleche" name="moins2" class="previous rond" value="&#8249;" />
+
+				<?php
+
+
 				$base = mysqli_connect("localhost", "root","","hestiadb");
-				if ($base) { 
-					$sql="SELECT `TempChauff` FROM `chauffage` WHERE `chauffage`.`IdPiËce` = 2";
+				if ($base) {
+					$sql="SELECT `TempChauff` FROM `chauffage` WHERE `chauffage`.`IdPiece` = 2";
 					$resultat = mysqli_query($base,$sql);
 					if ($resultat == TRUE) {
-						while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						while ($ligne = mysqli_fetch_assoc($resultat)) {
 							echo "".$ligne['TempChauff']." &#176 C ";
-						} 
+						}
 					}
-				} 
-				?>			
-			<input type="submit" class="fleche" name="plus2" class="next rond" value="&#8250;" /> 
+				}
+				?>
+			<input type="submit" class="fleche" name="plus2" class="next rond" value="&#8250;" />
 			</h4>
 			</form>
 			</div>
-					
+
 		</div>
 	</div>
 </div>
@@ -288,38 +291,38 @@
 		<br><h2>CHAUFFAGE DE LA CUISINE</h2>
 		<a class="close" href="temperature.php">&times;</a>
 		<div class="content">
-			
+
 			<div class="content_haut">
-			
+
 			<div class="allumer_eteindre">
 			<h5><?php
 					$base = mysqli_connect("localhost", "root","","hestiadb");
-					if ($base) { 
+					if ($base) {
 						$sql="SELECT `Etat` FROM `chauffage` WHERE `chauffage`.`IdChauffage` = 3";
 						$resultat = mysqli_query($base,$sql);
-						if ($resultat == TRUE) { 
-							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if ($resultat == TRUE) {
+							while ($ligne = mysqli_fetch_assoc($resultat)) {
 								if( $ligne['Etat']==0){
 									echo "Eteint";
 								}
 								else{
 									echo "Allum√©";
 								}
-								
-							} 
+
+							}
 						}
-					} 
+					}
 					?></h5> <br>
 			<label class="switch"><form action="php/temperature/temp3.php" method="post">
 			<input type="submit">
-			<input type="checkbox" 
+			<input type="checkbox"
 				<?php
 					$base = mysqli_connect("localhost", "root","","hestiadb");
-					if ($base) { 
+					if ($base) {
 						$sql="SELECT `Etat` FROM `chauffage` WHERE `chauffage`.`IdChauffage` = 3";
 						$resultat = mysqli_query($base,$sql);
-						if ($resultat == TRUE) { 
-							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if ($resultat == TRUE) {
+							while ($ligne = mysqli_fetch_assoc($resultat)) {
 								if( $ligne['Etat']==1){
 									echo "checked";
 									$test=1;
@@ -328,71 +331,71 @@
 									echo "";
 									$test=0;
 								}
-								
-							} 
+
+							}
 						}
-					} 
+					}
 					?>
 				> </input></input>
-			
+
   			<span class="slider round"></span>
-			
+
 			</label>
-			</form>	
+			</form>
 			</div>
-			
-			
+
+
 			<div class="temperature_piece" >
 				<h5> Temp√©rature de la cuisine</h5><br>
 				<h4>
-				<?php 
-			
+				<?php
+
 				$base = mysqli_connect("localhost", "root","","hestiadb");
-				if ($base) { 
-					$sql="SELECT `TempPiËce` FROM `piËce` WHERE `piËce`.`IdPiËce` = 2";
+				if ($base) {
+					$sql="SELECT `TempPiece` FROM `piece` WHERE `piece`.`IdPiece` = 2";
 					$resultat = mysqli_query($base,$sql);
 					if ($resultat == TRUE) {
-						while ($ligne = mysqli_fetch_assoc($resultat)) { 
-							echo "".$ligne['TempPiËce']." &#176 C";
-						} 
+						while ($ligne = mysqli_fetch_assoc($resultat)) {
+							echo "".$ligne['TempPiece']." &#176 C";
+						}
 					}
-				} 
-				
-				?>	
+				}
+
+				?>
 				</h4>
-			
+
 			</div>
 
 			</div>
-			
+
 			<div id="nouvelle_temperature" <?php if($test==0){echo 'style="visibility:hidden"';}?>>
 				<h5> Modifier la temp√©rature </h5><br>
-				
+
 			<form action="php/temperature/temp_3.php" method="post">
-		
+
 			<h4>
-			<input type="submit" class="fleche" name="moins3" class="previous rond" value="&#8249;" /> 
-			
-				<?php 
-				
-			
+			<input type="submit" class="fleche" name="moins3" class="previous rond" value="&#8249;" />
+
+				<?php
+
+
 				$base = mysqli_connect("localhost", "root","","hestiadb");
-				if ($base) { 
-					$sql="SELECT `TempChauff` FROM `chauffage` WHERE `chauffage`.`IdPiËce` = 3";
+				if ($base) {
+					$sql="SELECT `TempChauff` FROM `chauffage` WHERE `chauffage`.`IdPiece` = 3";
 					$resultat = mysqli_query($base,$sql);
 					if ($resultat == TRUE) {
-						while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						while ($ligne = mysqli_fetch_assoc($resultat)) {
 							echo "".$ligne['TempChauff']." &#176 C ";
-						} 
+						}
 					}
-				} 
+				}
 				?>
-				
-			<input type="submit" class="fleche" name="plus3" class="next rond" value="&#8250;" /> 
+
+			<input type="submit" class="fleche" name="plus3" class="next rond" value="&#8250;" />
 			</h4>
 			</form>
 			</div>
-					
+
 		</div>
 	</div>
 </div>
@@ -401,7 +404,7 @@
 		<div class="map_image">
 
 
-<svg 
+<svg
      version="1.1"
      baseProfile="full"
      xmlns="http://www.w3.org/2000/svg"
@@ -409,8 +412,8 @@
      xmlns:ev="http://www.w3.org/2001/xml-events"
      x="0px"
      y="0px"
-     width=140%
-     height=140%
+     width=217%
+     height=217%
      viewBox="0 0 1059 753"
      >
 
@@ -418,26 +421,26 @@
 <g transform="matrix(1, 0, 0, 1, 5.9476470947265625, 6.39886474609375)">
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 519.8021850585938 2.1009974479675293 L 519.8019409179688 737.6012573242188 L 2.302337646484375 737.6012573242188 L 2.302337646484375 2.3511195182800293 L 2.302337646484375 2.1009974479675293 z"/>
-	
+
 	<foreignobject x=20% y=40% width=50% height=150%>
 	<a class="button" href="#salon">SALON</a>
 	<h6><br>
-	<?php 
-			
+	<?php
+
 		$base = mysqli_connect("localhost", "root","","hestiadb");
-		if ($base) { 
-			$sql="SELECT `TempPiËce` FROM `piËce` WHERE `piËce`.`IdPiËce` = 1";
+		if ($base) {
+			$sql="SELECT `TempPiece` FROM `piece` WHERE `piece`.`IdPiece` = 1";
 			$resultat = mysqli_query($base,$sql);
-			if ($resultat == TRUE) { 
-				while ($ligne = mysqli_fetch_assoc($resultat)) { 
-					echo "".$ligne['TempPiËce']." &#176 C ";
-				} 
+			if ($resultat == TRUE) {
+				while ($ligne = mysqli_fetch_assoc($resultat)) {
+					echo "".$ligne['TempPiece']." &#176 C ";
+				}
 			}
-		} 
+		}
 		?>
 	</h6>
 	</foreignobject>
-  
+
   </g> <!-- drawing style -->
 </g> <!-- transform -->
 
@@ -450,25 +453,25 @@
 <g transform="matrix(1, 0, 0, 1, 5.9476470947265625, 6.39886474609375)">
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 2.10101318359375 L 1044.8023681640625 369.60101318359375 L 527.3023681640625 369.60101318359375 L 527.3023681640625 2.10101318359375 z"/>
-	
+
 	<foreignobject x=67% y=15% width=147% height=150%>
 	<a class="button" href="#chambre">CHAMBRE</a>
 	<h6><br>
-	<?php 		
+	<?php
 		$base = mysqli_connect("localhost", "root","","hestiadb");
-		if ($base) { 
-			$sql="SELECT `TempPiËce` FROM `piËce` WHERE `piËce`.`IdPiËce` = 2";
+		if ($base) {
+			$sql="SELECT `TempPiece` FROM `piece` WHERE `piece`.`IdPiece` = 2";
 			$resultat = mysqli_query($base,$sql);
 			if ($resultat == TRUE) {
-				while ($ligne = mysqli_fetch_assoc($resultat)) { 
-					echo "".$ligne['TempPiËce']." &#176 C ";
-				} 
+				while ($ligne = mysqli_fetch_assoc($resultat)) {
+					echo "".$ligne['TempPiece']." &#176 C ";
+				}
 			}
-		} 
+		}
 		?>
 	</h6>
 	</foreignobject>
-  
+
 </g> <!-- drawing style -->
 </g> <!-- transform -->
 
@@ -484,21 +487,21 @@
 	<foreignobject x=68% y=63% width=147% height=150%>
 	<a class="button" href="#cuisine">CUISINE</a>
 	<h6><br>
-	<?php 			
+	<?php
 		$base = mysqli_connect("localhost", "root","","hestiadb");
-		if ($base) { 
-			$sql="SELECT `TempPiËce` FROM `piËce` WHERE `piËce`.`IdPiËce` = 3";
+		if ($base) {
+			$sql="SELECT `TempPiece` FROM `piece` WHERE `piece`.`IdPiece` = 3";
 			$resultat = mysqli_query($base,$sql);
-			if ($resultat == TRUE) { 
-				while ($ligne = mysqli_fetch_assoc($resultat)) { 
-					echo "".$ligne['TempPiËce']." &#176 C ";
-				} 
+			if ($resultat == TRUE) {
+				while ($ligne = mysqli_fetch_assoc($resultat)) {
+					echo "".$ligne['TempPiece']." &#176 C ";
+				}
 			}
-		} 
+		}
 		?>
 	</h6>
 	</foreignobject>
-  
+
 </g> <!-- drawing style -->
 </g> <!-- transform -->
 
@@ -731,7 +734,7 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 	</div>
 
 	<div class="droite">
-		
+
 		<div class="tout">
 			<h4>   Contr√¥le </h4><br>
 			 <form action="php/temperature/temp4.php" method="post">
@@ -739,12 +742,12 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 				<button type="submit" class="bouton-tout" id="tout-eteindre" name="tout-eteindre"  value=""
 				<?php
 					$base = mysqli_connect("localhost", "root","","hestiadb");
-					if ($base) { 
+					if ($base) {
 						$sql="SELECT `Etat` FROM `chauffage`";
 						$resultat = mysqli_query($base,$sql);
 						$i=0;
-						if ($resultat == TRUE) { 
-							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if ($resultat == TRUE) {
+							while ($ligne = mysqli_fetch_assoc($resultat)) {
 								if($i==0){
 									$i1=$ligne['Etat'];
 									$i++;
@@ -752,7 +755,7 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 									$i2=$ligne['Etat'];
 								$i++;}
 							else{$i3=$ligne['Etat'];}
-							} 
+							}
 						}
 					}
 						if($i1==0 && $i1==$i2 && $i2==$i3){
@@ -763,27 +766,25 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 						}else{
 							$i=2;
 						}
-					?>    
-				/></button><h3 id="texte-tout">Tout √©teindre</h3> 
+					?>
+				/></button><h3 id="texte-tout">Tout √©teindre</h3>
 				<br>
 				<button type="submit" id="tout-allumer" class="bouton-tout" name="tout-allumer"  value=""
 				<?php
 					if($i==1){echo "disabled";}
-					?>  
+					?>
 			    /> </button><h3 id="texte-tout">Tout allumer </h3> <br><br>
-				
+
 				<div class="tout-allumer-disclosure">
-				
-				<form action="php/temperature/temp5.php" method="post">
-				
+
 				<div class="col-3 input-effect">
 					<input class="effect-20" type="number" name="degres" min="0" max="30" placeholder="">
 					<label>Temp√©rature voulue</label>
 					<span class="focus-border"> <i></i> </span>
-				</div> <h3 id="texte-degre">  &#176 C<h3> <br>
+				</div> <h3 id="texte-degre">  &#176 C<h3>
+					<br>
 					<input type="submit" name="submit" class="btn" value="Modifier"><br> <br>
 				</div>
-				</form>
 			</form>
 
 		</div>
@@ -792,27 +793,45 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 	</div>
 
 
-<div id="footer">	
+<div id="footer">
 	<div id="footer_gauche">
+		<br><br>
 		<h3> Temp√©rature ext√©rieure </h3><br>
 		<h4>
-			<?php 
+			<?php
 				$base = mysqli_connect("localhost", "root","","hestiadb");
-				if ($base) { 
-					$sql="SELECT `TempExt` FROM `chauffage` WHERE `chauffage`.`IdPiËce` = 1";
+				if ($base) {
+					$sql="SELECT `TempExt` FROM `maison`";
 					$resultat = mysqli_query($base,$sql);
 					if ($resultat == TRUE) {
-						while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						while ($ligne = mysqli_fetch_assoc($resultat)) {
 							echo "".$ligne['TempExt']." &#176 C ";
-						} 
+						}
 					}
-				} 
+				}
 			?>
 		</h4>
 	</div>
-	
+
 	<div id="footer_droit">
-		<h3> Score </h3>
+		<br><br>
+		<h3> Score </h3><br>
+		<h4><?php
+			$base = mysqli_connect("localhost", "root","","hestiadb");
+			if ($base) {
+				$sql="SELECT `ScoreUtil` FROM `utilisateur` WHERE IdMaison=1";
+				$resultat = mysqli_query($base,$sql);
+				if ($resultat == TRUE) {
+					while ($ligne = mysqli_fetch_assoc($resultat)) {
+						$score=$ligne['ScoreUtil'];
+						if($score<=33){echo '<font color="#FF4848">'.$score."</font>";}
+						else if($score<=66){echo '<font color="#F4A460">'.$score."</font>";}
+						else{echo '<font color="#7BD272">'.$score."</font>";}
+					}
+				}
+			}
+		?>
+	</h4>
 	</div>
 </div>
 

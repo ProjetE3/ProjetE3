@@ -8,10 +8,10 @@ catch(Exception $e)
         die('Erreur : '.$e->getMessage());
 }
 
-$rep=$bdd->query('SELECT Etat FROM chauffage WHERE IdPièce=1');
+$rep=$bdd->query('SELECT Etat FROM chauffage WHERE IdPiece=1');
 while($i=$rep->fetch()){
-	if ($i['Etat']==0){$bdd->exec('UPDATE chauffage SET Etat = 1 WHERE IdPièce=1');}
-	else{$bdd->exec('UPDATE chauffage SET Etat = 0 WHERE IdPièce=1');}
+	if ($i['Etat']==0){$bdd->exec('UPDATE chauffage SET Etat = 1 WHERE IdPiece=1');}
+	else{$bdd->exec('UPDATE chauffage SET Etat = 0 WHERE IdPiece=1');}
 }
 $rep->closeCursor();
 

@@ -1,4 +1,4 @@
-<?php 
+<html><?php
 
 try
 {
@@ -9,13 +9,11 @@ catch(Exception $e)
         die('Erreur : '.$e->getMessage());
 }
 
-if(isset($_POST['submit'])){
-	echo $_POST['degres'];
+if($_POST['degres']){
 	$temp=$_POST['degres'];
-	$req=$bdd->query('UPDATE chauffage SET TempChauff = '.$temp);
-	
+	$req=$bdd->query('UPDATE chauffage SET TempChauff ='.$temp.';');
 }
 
-
-;
+header('Location: ../../temperature.php');
 ?>
+</html>

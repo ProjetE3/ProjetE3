@@ -1,9 +1,9 @@
-/* 
+/*
 	BOUTON NOM DE LA SALLE
 */
 
 .button {
-  font-size: 200%;
+  font-size: 250%;
   padding: 10px;
   font-family: 'Oswald', sans-serif;
   color: #fff;
@@ -33,7 +33,7 @@
 .map_image{
 	display : block;
 	float: left;
-	margin-left:15%;
+	margin-left:12%;
 }
 
 .droite {
@@ -43,5 +43,5 @@
 	background : rgba(221,219,219, 0.3);
 	height : 200%;
 	border-radius: 5px;
-	
+
 }

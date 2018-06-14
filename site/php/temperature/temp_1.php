@@ -11,11 +11,11 @@ catch(Exception $e)
 
 
 if (isset($_POST['moins'])) {
-	$rep=$bdd->query('UPDATE `chauffage` SET `TempChauff` = `TempChauff` - 1 WHERE `chauffage`.`IdPièce` = 1');
+	$rep=$bdd->query('UPDATE `chauffage` SET `TempChauff` = `TempChauff` - 1 WHERE `chauffage`.`IdPiece` = 1');
 
 }
 elseif ( isset($_POST['plus'])) {
-	$rep=$bdd->query('UPDATE `chauffage` SET `TempChauff` = `TempChauff` + 1 WHERE `chauffage`.`IdPièce` = 1');
+	$rep=$bdd->query('UPDATE `chauffage` SET `TempChauff` = `TempChauff` + 1 WHERE `chauffage`.`IdPiece` = 1');
 
 }
 

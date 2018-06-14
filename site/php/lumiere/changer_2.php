@@ -7,10 +7,10 @@ catch(Exception $e)
 {
         die('Erreur : '.$e->getMessage());
 }
-$rep=$bdd->query('SELECT Etat FROM lumière WHERE IdPièce=2');
+$rep=$bdd->query('SELECT Etat FROM lumiere WHERE IdPiece=2');
 while($i=$rep->fetch()){
-	if ($i['Etat']==0){$bdd->exec('UPDATE lumière SET Etat = 1 WHERE IdPièce=2');}
-	else{$bdd->exec('UPDATE lumière SET Etat = 0 WHERE IdPièce=2');}
+	if ($i['Etat']==0){$bdd->exec('UPDATE lumiere SET Etat = 1 WHERE IdPiece=2');}
+	else{$bdd->exec('UPDATE lumiere SET Etat = 0 WHERE IdPiece=2');}
 }
 $rep->closeCursor();
 

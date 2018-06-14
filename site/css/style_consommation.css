@@ -1,81 +1,155 @@
 
 /* les boutons */
 .bouton img {
-    display: block;
-    color: #fff;
-    text-align: center;
-    padding: 2% 2%;
-    max-width: 10%;
-    text-decoration: none;
-    height : 16px;
-    z-index : 4;
+  display: block;
+  color: #fff;
+  text-align: center;
+  padding: 2% 2%;
+  max-width: 10%;
+  text-decoration: none;
+  height : 16px;
+  z-index : 4;
 }
 
 /* Bouton-info */
 .bouton-info {
-    background-color: #7BD272;
-    border-radius: 50%;
-    float : bottom;
-    display : block;
-    margin-top : 8%;
-    position: fixed;
-    z-index: 3;
-    border: 3px #7BD272 solid;
-    margin-left: 2%
+  background-color: #7BD272;
+  border-radius: 50%;
+  float : bottom;
+  display : block;
+  margin-top : 8%;
+  position: fixed;
+  z-index: 3;
+  border: 3px #7BD272 solid;
+  margin-left: 2%
 }
 
 /* Bouton-temperature */
 .bouton-temperature  {
-    background-color: #7BD272;
-    border-radius: 50%;
-    float : bottom;
-    display : block;
-    margin-top : 16%;
-    position: fixed;
-    z-index: 3;
-    border: 3px #7BD272 solid;
-    margin-left: 2%
+  background-color: #7BD272;
+  border-radius: 50%;
+  float : bottom;
+  display : block;
+  margin-top : 16%;
+  position: fixed;
+  z-index: 3;
+  border: 3px #7BD272 solid;
+  margin-left: 2%
 
 }
 
 /* Bouton-lumiere */
 .bouton-lumiere {
-    background-color: #7BD272;
-    border-radius: 50%;
-    float : bottom;
-    display : block;
-    margin-top : 24%;
-    position: fixed;
-    z-index: 3;
-    border: 3px #7BD272 solid;
-    margin-left: 2%
+  background-color: #7BD272;
+  border-radius: 50%;
+  float : bottom;
+  display : block;
+  margin-top : 24%;
+  position: fixed;
+  z-index: 3;
+  border: 3px #7BD272 solid;
+  margin-left: 2%
 
 }
 
 
 /*
-	MAIN
+MAIN
 */
 
 h1, p {
-    font-family: 'Oswald', sans-serif;
-    display: block;
-    z-index: 5;
-    text-align: center;
+  font-family: 'Oswald', sans-serif;
+  display: block;
+  z-index: 5;
+  text-align: center;
 }
 
 h1 {
-   	font-size: 200%;
-	color: #5A5E6B;
-	display : block;
+  font-size: 200%;
+  color: #5A5E6B;
+  display : block;
 }
 
 /*
-  Graph
+Graph
 */
+.titre{
+  padding:0.5%;
+  border-bottom:solid;
+  border-bottom-color: #BDBDBD;
+}
+
+.titre h1{
+  font-size:300%;
+}
 
 .graph {
+  position: relative;
+  margin-top:1.5%;
+  left:10%;
   display : block;
-  margin-left: : 50%;
+  margin-left: : 10%;
+  width:1500px;
+  height:750px;
 
+}
+
+.LineChart {
+  position: static;
+  display:block;
+  width:100%;
+  height:50%;
+}
+
+.PiePrice {
+  position: static;
+  display:block;
+  width:100%;
+  height:50%;
+}
+
+.PieChart {
+  position: static;
+  display:block;
+  width:50%;
+  height:100%;
+}
+
+.Price {
+  position: relative;
+  left:50%;
+  bottom:100%;
+  width:50%;
+  height:100%;
+}
+
+.Price p{
+  font-family: 'Oswald', sans-serif;
+  display: block;
+  font-size: 600%;
+  z-index: 5;
+  color: #757575;
+  text-align: center;
+}
+.Price h2{
+  font-family: 'Oswald', sans-serif;
+  display: block;
+  font-size: 150%;
+  z-index: 5;
+  color:  #BDBDBD;
+  text-align: center;
+}
+
+.refresh{
+  display: block;
+  padding-top: 1%;
+  padding-left: 90%;
+  width:16px;
+  height:16px;
+}
+
+.refresh img{
+  display: block;
+  max-width:20px;
+  max-height:20px;
 }

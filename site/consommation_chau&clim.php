@@ -21,52 +21,38 @@
 	try{
 		$bdd= new PDO('mysql:host=localhost;dbname=hestiadb;charset=utf8','root','');}catch(Exception $e){echo "Unable to connect to the database :'('";}
 
-		$chaine='[';$maxVValue=0;$Lum=0;$Cha=0;$Ele=0;$i=0;$totLum=0;$totCha=0;$totEle=0;
+		$chaine='[';$maxVValue=0;$total=0;$i=0;$totLum1=0;$totLum2=0;$totLum3=0;
 
-		$rep=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdLumiere IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdLumiere ASC ORDER BY DateHeureMinute ASC;");
-		$rep2=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdChauffage IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdChauffage ASC ORDER BY DateHeureMinute ASC;");
-		$rep3=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdElectro IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdElectro ASC ORDER BY DateHeureMinute ASC;");
+		$rep=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdChauffage IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdChauffage ASC ORDER BY DateHeureMinute ASC;");
 
-		if($rep!=FALSE && $rep2!=FALSE && $rep3!=FALSE){
+
+		if($rep!=FALSE){
 			while($data=$rep->fetch()){
-				if($data2=$rep2->fetch()){
-					if($data3=$rep3->fetch()){
-						if($i==0){
-							$chaine .= '"'.$data['Jour'].'",';
-							$Lum=$Lum+$data['Energie_consomme'];
-							$Cha=$Cha+$data2['Energie_consomme'];
-							$Ele=$Ele+$data3['Energie_consomme'];
-							$i++;
-						}
-						else if($i<=2){
-							$i++;
-
-							if($i==3){
-								$Lum=$Lum+$data['Energie_consomme'];
-								$Cha=$Cha+$data2['Energie_consomme'];
-								$Ele=$Ele+$data3['Energie_consomme'];
-								$chaine.=$Lum.",".$Cha.",".$Ele.",".($Lum+$Cha+$Ele).'],[';
-								$totLum=$totLum+$Lum;
-								$totCha=$totCha+$Cha;
-								$totEle=$totEle+$Ele;
-								$Lum=0;
-								$Cha=0;
-								$Ele=0;
-								$i=0;
-							}else{
-								$Lum=$Lum+$data['Energie_consomme'];
-								$Cha=$Cha+$data2['Energie_consomme'];
-								$Ele=$Ele+$data3['Energie_consomme'];
-							}
-						}
-					}
+				if($i==0){
+					$chaine .= '"'.$data['Jour'].'",'.$data['Energie_consomme'].',';
+					$total=$total+$data['Energie_consomme'];
+					$totLum1=$totLum1+$data['Energie_consomme'];
+					$i++;
+				}
+				else if($i<=2){
+					$chaine.=$data['Energie_consomme'].',';
+					$total=$total+$data['Energie_consomme'];
+					$i++;
+					if($i==3){
+						$chaine.=$total.'],[';
+						if($total>$maxVValue){$maxVValue=$total;}
+						$totLum3=$totLum3+$data['Energie_consomme'];
+						$total=0;
+						$i=0;
+					}else{$totLum2=$totLum2+$data['Energie_consomme'];}
 				}
 			}
 			$rep->closeCursor();
 		}
 
 		$chaine= substr($chaine,0,strlen($chaine)-2);
-		if($chaine==NULL){$chaine='[0,1,2,3,6],[31,2,3,5,10]';}
+		if($chaine==NULL){$chaine='[0,0,1,2,3],[31,1,2,3,6]';}
+		$maxVValue=$maxVValue+$maxVValue/4;
 		?>
 
 		<script type="text/javascript">
@@ -75,12 +61,12 @@
 
 		function drawChart() {
 			var data = google.visualization.arrayToDataTable([
-				['Temps', 'Lumiere','Chauffage','Electroménager','Total'],<?php echo $chaine;?>
+				['Temps', 'Chauffage Salon','Chauffage Chambre','Chauffage Cuisine', 'Total Chauffages'],<?php echo $chaine;?>
 			]);
 
 			var options = {
 				//theme : 'material',
-				chart: {title: 'Consommation des systemes', subtitle:'en W/h'},
+				chart: {title: 'Consommation du chauffage et des climatiseurs par jour', subtitle:'en W/h'},
 				//curveType:'function',
 				width: 1500,
 				height: 375,
@@ -109,14 +95,14 @@
 		function drawPie(){
 
 			var data2 = google.visualization.arrayToDataTable([
-				['Systeme', 'Consommation'],
-				['Lumiere',<?php echo $totLum;?>],
-				['Chauffage et climatisation',<?php echo $totCha;?>],
-				['Electroménager',<?php echo $totEle;?>],
+				['Piece', 'Consommation'],
+				['Salon',<?php echo $totLum1;?>],
+				['Chambre',<?php echo $totLum2;?>],
+				['Cuisine',<?php echo $totLum3;?>],
 			]);
 
 			var options2 = {
-				title: 'Répartition des consommations des systemes :',
+				title: 'Répartition des consommations des chauffages et climatiseurs :',
 				fontName:'Oswald',fontSize:18,
 				legend : {textStyle: {fontSize:13}},
 				pieSliceTextStyle:{fontSize:15,},
@@ -183,7 +169,7 @@
 
 	<div id="main">
 		<div class="titre">
-			<br><h1>CONSOMMATION ENERGETIQUE</h1><br>
+			<br><h1>CONSOMMATION DU CHAUFFAGE ET DES CLIMATISEURS</h1><br>
 		</div>
 
 		<div class="refresh">
@@ -193,6 +179,7 @@
 		</div>
 
 		<div class="graph">
+
 			<div class="LineChart">
 				<div id="curve_chart"></div>
 			</div>
@@ -203,9 +190,9 @@
 				</div>
 				<div class="Price">
 
-					<h1>Coût total de la consommation sur 30 jours :</h1>
+					<h1>Coût total du chauffage et des climatiseurs sur 30 jours :</h1>
 					<br /><br /><br />
-					<p><?php echo "~".number_format((($totLum*0.001*6*30)+($totCha*0.01*6*30)+$totEle)*0.14, 3)." €";?></p>
+					<p><?php echo "~".number_format(($totLum1+$totLum2+$totLum3)*0.14*0.01*6*30, 3)." €";?></p>
 					<br /><hr /><br />
 					<h2>soit 0,14 € par kW/h</h2>
 				</div>

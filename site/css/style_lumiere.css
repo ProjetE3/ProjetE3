@@ -17,7 +17,7 @@
     border-radius: 50%;
     float : bottom;
     display : block;
-    margin-top : 8%; 
+    margin-top : 8%;
     position: fixed;
     z-index: 3;
     border: 3px #7BD272 solid;
@@ -31,7 +31,7 @@
     border-radius: 50%;
     float : bottom;
     display : block;
-    margin-top : 16%; 
+    margin-top : 16%;
     position: fixed;
     z-index: 3;
     border: 3px #7BD272 solid;
@@ -45,7 +45,7 @@
     border-radius: 50%;
     float : bottom;
     display : block;
-    margin-top : 24%; 
+    margin-top : 24%;
     position: fixed;
     z-index: 3;
     border: 3px #7BD272 double;
@@ -63,11 +63,22 @@ html, h1, p {
     z-index: 5;
 }
 
+.titre{
+  padding-top:0.5%;
+  border-bottom:solid;
+  border-bottom-color: #BDBDBD;
+  margin-bottom:1%;
+}
+
+.titre h1{
+  font-size:300%;
+}
+
 h1 {
    	font-size: 200%;
 	color: #5A5E6B;
 	display : block;
-	margin-left: 47%;
+	margin-left: 45%;
 }
 
 #main {
@@ -78,7 +89,9 @@ h1 {
 
 .tout {
 	margin-left : 5%;
-	
+
+  font-size:175%;
+
 }
 
 h3 {
@@ -118,59 +131,3 @@ h3 {
 #texte-tout {
 	margin-left:10%;
 }
-
-
-/*
-	FOOTER
-
-
-.footer-ferme {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 50px;
-	position: fixed;
-        bottom: 0;
-	width:70%;
-	left:50%;
-	margin-left:-35%;
-	background-color :  #5A5E6B;
-	color : #FFF;
-}
-
-.footer-ouvert {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 150px;
-	position: fixed;
-        bottom: 0;
-	width:70%;
-	left:50%;
-	margin-left:-35%;
-	background-color :  #5A5E6B;
-	color : #FFF;
-}
-
-
-p{
-	align : center;
-}
-
-#triangle-haut{ 
-	align-items: center;
-	margin-bottom: 50px;
-	border-bottom: 16px solid #77c;/* couleur du triangle*/ 
-	border-left: 8px solid transparent; 
-	border-right: 8px solid transparent; 
-
-}
-
-#triangle-bas{ 
-	align-items: center;
-	margin-bottom: 150px;
-	border-top: 16px solid #77c;/* couleur du triangle*/ 
-	border-left: 8px solid transparent; 
-	border-right: 8px solid transparent; 
-}
-*/

@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html>
-	
-	<header> 	
-	<!-- en-tête de la page -->
-			
-	
+
+	<header>
+	<!-- en-tï¿½te de la page -->
+
+
 	<!-- page css -->
-	<link rel="stylesheet" href="css/style_nav.css"/>	
+	<link rel="stylesheet" href="css/style_nav.css"/>
 	<link rel="stylesheet" href="css/style_lumiere.css"/>
 	<link rel="stylesheet" href="css/style_maison_lumiere.css"/>
-	
+
 	<!-- page javascript -->
 	<script src="scripts/nav.js"> </script>
-	
-	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"/>	
-	<title> Hestia </title>	
+
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"/>
+	<title> Hestia </title>
 	</header>
 
 	<!-- NAVIGATION -->
 <div id="sideNavigation" class="menu-ouvert">
 	<a href="javascript:void(0)" class="bouton-croix" onclick="closeNav()">&times;</a>
 
-	<li><a href="Consommation.php">CONSOMMATION</a>
-	<ul >
-		<li><a href="Consommation.php#Chauffage">CHAUFFAGE</a></li>
-		<li><a href="Consommation.php#Lumière">LUMIÃˆRE</a></li>
-	</ul>
+	<li><a href="Consommation">CONSOMMATION</a>
+		<ul >
+			<li><a href="Consommation_chau&clim">CHAUFFAGE</a></li>
+			<li><a href="Consommation_lum">LUMIERE</a></li>
+		</ul>
 	</li>
 
-	<li><a href="domotique.php">DOMOTIQUE</a></li>
+	<li><a href="Domotique">DOMOTIQUE</a></li>
 </div>
 
+
 <!-- BOUTONS DU MENU -->
+
 <div class="boutons">
 	<div class="menu">
-  		<a href="#" onclick="openNav()"> 
-		<img class="bouton-menu" src="images/menu.png" alt="Menu"/> 
-  		</a>
+		<a href="#" onclick="openNav()">
+			<img class="bouton-menu" src="images/menu.png" alt="Menu"/>
+
+		</a>
 	</div>
 
 	<div class="bouton">
-		<a id="info" href="information.html"> 
-			<img class="bouton-info" src="images/info.png" alt="Information"/>  
+		<a id="info" href="Information">
+			<img class="bouton-info" src="images/info.png" alt="Information"/>
 		</a>
-		<a id="temperature" href="temperature.php"> 
-			<img class="bouton-temperature" src="images/thermometre.png" alt="Thermomètre"/>  
+		<a id="temperature" href="Temperature">
+			<img class="bouton-temperature" src="images/thermometre.png" alt="Thermometre"/>
 		</a>
-		<a id="lumiere" href="lumiere.php"> 
-			<img class="bouton-lumiere" src="images/ampoule-vert.png" alt="Ampoule"/> 
+		<a id="lumiere" href="Lumiere">
+			<img class="bouton-lumiere" src="images/ampoule-vert.png" alt="Ampoule"/>
 		</a>
 
 	</div>
@@ -58,15 +61,15 @@
 <!-- main -->
 	<div id="main">
 		<div class="titre">
-			<br><h1>LUMIÃˆRE</h1><br>
+			<br><h1>LUMIERE</h1><br>
 		</div>
-		
+
 		<div class="milieu">
-		
+
 		<div class="map_image">
 
 
-<svg 
+<svg
      version="1.1"
      baseProfile="full"
      xmlns="http://www.w3.org/2000/svg"
@@ -74,8 +77,8 @@
      xmlns:ev="http://www.w3.org/2001/xml-events"
      x="0px"
      y="0px"
-     width=140%
-     height=140%
+     width=217%
+     height=217%
      viewBox="0 0 1059 753"
      >
 
@@ -83,39 +86,55 @@
 <g transform="matrix(1, 0, 0, 1, 5.9476470947265625, 6.39886474609375)">
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 519.8021850585938 2.1009974479675293 L 519.8019409179688 737.6012573242188 L 2.302337646484375 737.6012573242188 L 2.302337646484375 2.3511195182800293 L 2.302337646484375 2.1009974479675293 z"/>
-	
+
 	<foreignobject x=20% y=43% width=50% height=150%>
-	
-	<div id="nom"> SALON </div>
+
+	<div id="nom"> SALON<img src=<?php
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+			if ($base) {
+				$sql="SELECT Etat FROM lumiere WHERE IdLumiere = 1";
+				$resultat = mysqli_query($base,$sql);
+				if ($resultat == TRUE) {
+					while ($ligne = mysqli_fetch_assoc($resultat)) {
+						if( $ligne['Etat']==0){
+							echo '"images/ampoule.png"';
+						}
+						else {
+							echo '"images/ampoule-vert.png"';
+						}
+					}
+				}
+		   }
+		?> alt="lumsal" width="32" height="32"></img> </div>
 	<br>
 	<form action="php/lumiere/changer_1.php" method="post">
-	<input type="submit" name="salon" class="button" value= 
-	
+	<input type="submit" name="salon" class="button" value=
+
 	<?php
 		$base = mysqli_connect("localhost", "root","","hestiadb");
-			if ($base) { 
-				$sql="SELECT `Etat` FROM `lumière` WHERE `lumière`.`IdLumière` = 1";
+			if ($base) {
+				$sql="SELECT Etat FROM lumiere WHERE IdLumiere = 1";
 				$resultat = mysqli_query($base,$sql);
-				if ($resultat == TRUE) { 
-					while ($ligne = mysqli_fetch_assoc($resultat)) { 
+				if ($resultat == TRUE) {
+					while ($ligne = mysqli_fetch_assoc($resultat)) {
 						if( $ligne['Etat']==0){
 							echo "Allumer";
 						}
 						else {
 							echo "Eteindre";
 						}
-					} 
+					}
 				}
-		   } 
+		   }
 		?>
 
 		/>
 		</form>
-			
-	</foreignobject>
-  
 
-	
+	</foreignobject>
+
+
+
   </g> <!-- drawing style -->
 </g> <!-- transform -->
 
@@ -128,35 +147,51 @@
 <g transform="matrix(1, 0, 0, 1, 5.9476470947265625, 6.39886474609375)">
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 2.10101318359375 L 1044.8023681640625 369.60101318359375 L 527.3023681640625 369.60101318359375 L 527.3023681640625 2.10101318359375 z"/>
-	
+
 	<foreignobject x=68% y=19% width=147% height=150%>
-	<div id="nom"> CHAMBRE </div>
+	<div id="nom"> CHAMBRE<img src=<?php
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+			if ($base) {
+				$sql="SELECT Etat FROM lumiere WHERE IdLumiere = 2";
+				$resultat = mysqli_query($base,$sql);
+				if ($resultat == TRUE) {
+					while ($ligne = mysqli_fetch_assoc($resultat)) {
+						if( $ligne['Etat']==0){
+							echo '"images/ampoule.png"';
+						}
+						else {
+							echo '"images/ampoule-vert.png"';
+						}
+					}
+				}
+		   }
+		?> alt="lumsal" width="32" height="32"></img> </div>
 	<br>
 	<form action="php/lumiere/changer_2.php" method="post">
-	<input type="submit" name="salon" class="button" value= 
-	
+	<input type="submit" name="salon" class="button" value=
+
 	<?php
 		$base = mysqli_connect("localhost", "root","","hestiadb");
-			if ($base) { 
-				$sql="SELECT `Etat` FROM `lumière` WHERE `lumière`.`IdLumière` = 2";
+			if ($base) {
+				$sql="SELECT Etat FROM lumiere WHERE IdLumiere = 2";
 				$resultat = mysqli_query($base,$sql);
-				if ($resultat == TRUE) { 
-					while ($ligne = mysqli_fetch_assoc($resultat)) { 
+				if ($resultat == TRUE) {
+					while ($ligne = mysqli_fetch_assoc($resultat)) {
 						if( $ligne['Etat']==0){
 							echo "Allumer";
 						}
 						else {
 							echo "Eteindre";
 						}
-					} 
+					}
 				}
-		   } 
+		   }
 		?>
 
 		/>
 		</form>
 	</foreignobject>
-  
+
 </g> <!-- drawing style -->
 </g> <!-- transform -->
 
@@ -170,33 +205,49 @@
 <g style="fill-opacity:1;fill-rule:nonzero;stroke:none;fill:#808080;">
   <path d="M 1044.8023681640625 377.10101318359375 L 1044.8023681640625 737.6010131835938 L 527.3023071289062 737.60107421875 L 527.3023071289062 377.10101318359375 z"/>
 	<foreignobject x=68% y=65% width=147% height=150%>
-	<div id="nom"> CUISINE </div>
+	<div id="nom"> CUISINE<img src=<?php
+		$base = mysqli_connect("localhost", "root","","hestiadb");
+			if ($base) {
+				$sql="SELECT Etat FROM lumiere WHERE IdLumiere = 3";
+				$resultat = mysqli_query($base,$sql);
+				if ($resultat == TRUE) {
+					while ($ligne = mysqli_fetch_assoc($resultat)) {
+						if( $ligne['Etat']==0){
+							echo '"images/ampoule.png"';
+						}
+						else {
+							echo '"images/ampoule-vert.png"';
+						}
+					}
+				}
+		   }
+		?> alt="lumsal" width="32" height="32"></img> </div>
 	<br>
 	<form action="php/lumiere/changer_3.php" method="post">
-	<input type="submit" name="salon" class="button" value= 
-	
+	<input type="submit" name="salon" class="button" value=
+
 	<?php
 		$base = mysqli_connect("localhost", "root","","hestiadb");
-			if ($base) { 
-				$sql="SELECT `Etat` FROM `lumière` WHERE `lumière`.`IdLumière` = 3";
+			if ($base) {
+				$sql="SELECT Etat FROM lumiere WHERE IdLumiere = 3";
 				$resultat = mysqli_query($base,$sql);
-				if ($resultat == TRUE) { 
-					while ($ligne = mysqli_fetch_assoc($resultat)) { 
+				if ($resultat == TRUE) {
+					while ($ligne = mysqli_fetch_assoc($resultat)) {
 						if( $ligne['Etat']==0){
 							echo "Allumer";
 						}
 						else {
 							echo "Eteindre";
 						}
-					} 
+					}
 				}
-		   } 
+		   }
 		?>
 
 		/>
 		</form>
 	</foreignobject>
-  
+
 </g> <!-- drawing style -->
 </g> <!-- transform -->
 
@@ -424,13 +475,13 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 </g> <!-- drawing style -->
 </g> <!-- transform -->
 </g> <!-- default stroke -->
-</svg> <!-- bounding box -->	
-    
+</svg> <!-- bounding box -->
+
 		</div>
-	
+
 
 	<div class="droite">
-		
+
 		<div class="tout">
 			<h4>   ContrÃ´le </h4><br>
 			 <form action="php/lumiere/lum.php" method="post">
@@ -438,12 +489,12 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 				<button type="submit" class="bouton-tout" id="tout-eteindre" name="tout-eteindre"  value=""
 				<?php
 					$base = mysqli_connect("localhost", "root","","hestiadb");
-					if ($base) { 
-						$sql="SELECT `Etat` FROM `lumière`";
+					if ($base) {
+						$sql="SELECT Etat FROM lumiere";
 						$resultat = mysqli_query($base,$sql);
 						$i=0;
-						if ($resultat == TRUE) { 
-							while ($ligne = mysqli_fetch_assoc($resultat)) { 
+						if ($resultat == TRUE) {
+							while ($ligne = mysqli_fetch_assoc($resultat)) {
 								if($i==0){
 									$i1=$ligne['Etat'];
 									$i++;
@@ -451,7 +502,7 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 									$i2=$ligne['Etat'];
 								$i++;}
 							else{$i3=$ligne['Etat'];}
-							} 
+							}
 						}
 					}
 						if($i1==0 && $i1==$i2 && $i2==$i3){
@@ -462,19 +513,19 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 						}else{
 							$i=2;
 						}
-					?>    
-				/></button><h3 id="texte-tout">Tout Ã©teindre</h3> 
+					?>
+				/></button><h3 id="texte-tout">Tout Ã©teindre</h3>
 				<br>
 				<button type="submit" id="tout-allumer" class="bouton-tout" name="tout-allumer"  value=""
 				<?php
 					if($i==1){echo "disabled";}
-					 ?>  
-			    /> </button><h3 id="texte-tout">Tout allumer </h3> <br><br><br><br><br><br>
-				
+					 ?>
+			    /> </button><h3 id="texte-tout">Tout allumer </h3> <br><br>
+
 				</form>
 			</div>
 		</div>
 	</div>
-	
+
 	</div>
 </html>
