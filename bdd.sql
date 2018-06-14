@@ -3,7 +3,7 @@
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
--- Base de données: `HestiaDB`
+-- Base de donnees: `HestiaDB`
 --
 DROP DATABASE IF EXISTS HestiaDB;
 CREATE DATABASE HestiaDB;
@@ -15,12 +15,13 @@ USE HestiaDB;
 
 DROP TABLE IF EXISTS Utilisateur;
 DROP TABLE IF EXISTS Maison;
-DROP TABLE IF EXISTS Pièce;
-DROP TABLE IF EXISTS Electroménager;
-DROP TABLE IF EXISTS Lumière;
+DROP TABLE IF EXISTS Piece;
+DROP TABLE IF EXISTS Electromenager;
+DROP TABLE IF EXISTS Lumiere;
 DROP TABLE IF EXISTS Chauffage;
 DROP TABLE IF EXISTS Energie;
 DROP TABLE IF EXISTS Minuteur;
+DROP TABLE IF EXISTS Scores;
 
 
 -- Tables Structure Section-----------------------------------------
@@ -33,6 +34,7 @@ CREATE TABLE Maison(
   TempExt tinyint DEFAULT 0 NOT NULL,
   PRIMARY KEY (IdMaison)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 -- Utilisateur
 CREATE TABLE Utilisateur(
   Identifiant varchar(16) NOT NULL,
@@ -43,15 +45,15 @@ CREATE TABLE Utilisateur(
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Pièce
-CREATE TABLE Pièce(
-  IdPièce smallint UNSIGNED NOT NULL AUTO_INCREMENT,
-  NomPièce varchar(16) NOT NULL,
+-- Piece
+CREATE TABLE Piece(
+  IdPiece smallint UNSIGNED NOT NULL AUTO_INCREMENT,
+  NomPiece varchar(16) NOT NULL,
   Surface smallint UNSIGNED NOT NULL,
-  TempPièce tinyint DEFAULT 0 NOT NULL,
-  ScorePièce tinyint UNSIGNED DEFAULT 50 NOT NULL,
+  TempPiece tinyint DEFAULT 0 NOT NULL,
+  ScorePiece tinyint UNSIGNED DEFAULT 50 NOT NULL,
   IdMaison smallint UNSIGNED NOT NULL,
-  PRIMARY KEY (IdPièce),
+  PRIMARY KEY (IdPiece),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -63,26 +65,26 @@ CREATE TABLE Minuteur (
   PRIMARY KEY (IdMinuteur)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Electroménager
-CREATE TABLE Electroménager (
+-- Electromenager
+CREATE TABLE Electromenager (
   IdElectro smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   NomElectro char(16) NOT NULL,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce smallint UNSIGNED NOT NULL,
+  IdPiece smallint UNSIGNED NOT NULL,
   IdMinuteur smallint UNSIGNED,
   PRIMARY KEY (IdElectro),
-  FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
+  FOREIGN KEY (IdPiece) REFERENCES Piece (IdPiece),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Lumière
-CREATE TABLE Lumière (
-  IdLumière smallint UNSIGNED NOT NULL AUTO_INCREMENT,
+-- Lumiere
+CREATE TABLE Lumiere (
+  IdLumiere smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce smallint UNSIGNED NOT NULL,
+  IdPiece smallint UNSIGNED NOT NULL,
   IdMinuteur smallint UNSIGNED,
-  PRIMARY KEY (IdLumière),
-  FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
+  PRIMARY KEY (IdLumiere),
+  FOREIGN KEY (IdPiece) REFERENCES Piece (IdPiece),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -91,23 +93,37 @@ CREATE TABLE Chauffage (
   IdChauffage smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   TempChauff tinyint DEFAULT 15 NOT NULL,
   Etat tinyint DEFAULT 0 NOT NULL,
-  IdPièce smallint UNSIGNED NOT NULL,
+  IdPiece smallint UNSIGNED NOT NULL,
   IdMinuteur smallint UNSIGNED,
   PRIMARY KEY (IdChauffage),
-  FOREIGN KEY (IdPièce) REFERENCES Pièce (IdPièce),
+  FOREIGN KEY (IdPiece) REFERENCES Piece (IdPiece),
   FOREIGN KEY (IdMinuteur) REFERENCES Minuteur (IdMinuteur)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Energie
 CREATE TABLE Energie (
   IdEner INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  EnerCons smallint UNSIGNED DEFAULT 0 NOT NULL,
+  EnerCons FLOAT(8,4) UNSIGNED DEFAULT 0 NOT NULL,
   DateHeureMinute DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
-  IdLumière smallint,
+  IdLumiere smallint,
   IdChauffage smallint,
   IdElectro smallint,
   PRIMARY KEY (IdEner)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Scores
+CREATE TABLE Scores (
+  IdScore INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  Score INT UNSIGNED DEFAULT 50 NOT NULL,
+  DateHeureMinute DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+  IdUtil varchar(16) NOT NULL,
+  IdPiece smallint UNSIGNED NOT NULL,
+  IdMaison smallint UNSIGNED NOT NULL,
+  PRIMARY KEY (IdScore),
+  FOREIGN KEY (IdUtil) REFERENCES Utilisateur (Identifiant),
+  FOREIGN KEY (IdPiece) REFERENCES Piece (IdPiece),
+  FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- EnergieStock
 
@@ -118,7 +134,7 @@ CREATE TABLE EnergieStock (
 
 
 
--- Données Maison defaut------------------------------------------------
+-- Donnees Maison defaut------------------------------------------------
 
 INSERT INTO Maison (Surface) VALUES
   (100);
@@ -126,17 +142,17 @@ INSERT INTO Maison (Surface) VALUES
 INSERT INTO Utilisateur (Identifiant, Mdp, IdMaison) VALUES
   ('admin','admin',1);
 
-INSERT INTO Pièce (NomPièce, Surface, IdMaison) VALUES
+INSERT INTO Piece (NomPiece, Surface, IdMaison) VALUES
   ('Salon', 50, 1),
   ('Chambre', 25, 1),
   ('Cuisine', 25, 1);
 
-INSERT INTO Lumière (IdPièce) VALUES
+INSERT INTO Lumiere (IdPiece) VALUES
   (1),
   (2),
   (3);
 
-INSERT INTO Chauffage (IdPièce) VALUES
+INSERT INTO Chauffage (IdPiece) VALUES
   (1),
   (2),
   (3);
