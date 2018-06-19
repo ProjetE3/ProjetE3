@@ -39,8 +39,8 @@ CREATE TABLE Maison(
 CREATE TABLE Utilisateur(
   Identifiant varchar(16) NOT NULL,
   Mdp varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  ScoreUtil tinyint(1) UNSIGNED DEFAULT 50 NOT NULL,
   IdMaison smallint UNSIGNED NOT NULL,
+  ScoreUtil  INT UNSIGNED DEFAULT 0 NOT NULL,
   PRIMARY KEY (Identifiant),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -51,7 +51,6 @@ CREATE TABLE Piece(
   NomPiece varchar(16) NOT NULL,
   Surface smallint UNSIGNED NOT NULL,
   TempPiece tinyint DEFAULT 0 NOT NULL,
-  ScorePiece tinyint UNSIGNED DEFAULT 50 NOT NULL,
   IdMaison smallint UNSIGNED NOT NULL,
   PRIMARY KEY (IdPiece),
   FOREIGN KEY (IdMaison) REFERENCES Maison (IdMaison) ON DELETE CASCADE
@@ -103,7 +102,7 @@ CREATE TABLE Chauffage (
 -- Energie
 CREATE TABLE Energie (
   IdEner INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  EnerCons FLOAT(8,4) UNSIGNED DEFAULT 0 NOT NULL,
+  EnerCons FLOAT(8,8) UNSIGNED DEFAULT 0 NOT NULL,
   DateHeureMinute DATETIME DEFAULT CURRENT_TIMESTAMP() NOT NULL,
   IdLumiere smallint,
   IdChauffage smallint,
