@@ -23,7 +23,7 @@
 
 		$chaine='[';$maxVValue=0;$total=0;$i=0;$totLum1=0;$totLum2=0;$totLum3=0;
 
-		$rep=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdChauffage IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdChauffage ASC ORDER BY DateHeureMinute ASC;");
+		$rep=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdChauffage IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdChauffage ASC ORDER BY DateHeureMinute ASC, IdChauffage ASC;");
 
 
 		if($rep!=FALSE){
@@ -192,7 +192,7 @@
 
 					<h1>Coût total du chauffage et des climatiseurs sur 30 jours :</h1>
 					<br /><br /><br />
-					<p><?php echo "~".number_format(($totLum1+$totLum2+$totLum3)*0.14*0.01*6*30, 3)." €";?></p>
+					<p><?php echo "~".number_format(($totLum1+$totLum2+$totLum3)*0.14*48*30, 3)." €";?></p>
 					<br /><hr /><br />
 					<h2>soit 0,14 € par kW/h</h2>
 				</div>

@@ -205,7 +205,7 @@
 
 					<h1>Coût total de la consommation sur 30 jours :</h1>
 					<br /><br /><br />
-					<p><?php echo "~".number_format((($totLum*0.001*6*30)+($totCha*0.01*6*30)+$totEle)*0.14, 3)." €";?></p>
+					<p><?php echo "~".number_format((($totLum*6*30)+($totCha*48*30)+$totEle*36*30)*0.14, 3)." €";?></p>
 					<br /><hr /><br />
 					<h2>soit 0,14 € par kW/h</h2>
 				</div>

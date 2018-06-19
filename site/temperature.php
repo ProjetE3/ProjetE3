@@ -143,7 +143,7 @@
 
 
 			<div id="nouvelle_temperature" <?php if($test==0){echo 'style="visibility:hidden"';}?>>
-				<h5> Modifier la température </h5><br>
+				<h5> Température de consigne  </h5><br>
 			<form action="php/temperature/temp_1.php" method="post">
 			<h4>
 
@@ -257,7 +257,7 @@
 			</div>
 
 			<div id="nouvelle_temperature" <?php if($test==0){echo 'style="visibility:hidden"';}?>>
-				<h5> Modifier la température </h5><br>
+				<h5> Température de consigne </h5><br>
 
 			<form action="php/temperature/temp_2.php" method="post">
 			<h4>
@@ -369,7 +369,7 @@
 			</div>
 
 			<div id="nouvelle_temperature" <?php if($test==0){echo 'style="visibility:hidden"';}?>>
-				<h5> Modifier la température </h5><br>
+				<h5> Température de consigne  </h5><br>
 
 			<form action="php/temperature/temp_3.php" method="post">
 
@@ -779,7 +779,7 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 
 				<div class="col-3 input-effect">
 					<input class="effect-20" type="number" name="degres" min="0" max="30" placeholder="">
-					<label>Température voulue</label>
+					<label>Température de consigne </label>
 					<span class="focus-border"> <i></i> </span>
 				</div> <h3 id="texte-degre">  &#176 C<h3>
 					<br>
@@ -811,27 +811,6 @@ LzyYeY+l+YMAAAAASUVORK5CYII="/>
 				}
 			?>
 		</h4>
-	</div>
-
-	<div id="footer_droit">
-		<br><br>
-		<h3> Score </h3><br>
-		<h4><?php
-			$base = mysqli_connect("localhost", "root","","hestiadb");
-			if ($base) {
-				$sql="SELECT `ScoreUtil` FROM `utilisateur` WHERE IdMaison=1";
-				$resultat = mysqli_query($base,$sql);
-				if ($resultat == TRUE) {
-					while ($ligne = mysqli_fetch_assoc($resultat)) {
-						$score=$ligne['ScoreUtil'];
-						if($score<=33){echo '<font color="#FF4848">'.$score."</font>";}
-						else if($score<=66){echo '<font color="#F4A460">'.$score."</font>";}
-						else{echo '<font color="#7BD272">'.$score."</font>";}
-					}
-				}
-			}
-		?>
-	</h4>
 	</div>
 </div>
 

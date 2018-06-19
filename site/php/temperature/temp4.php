@@ -14,12 +14,12 @@ if(isset($_POST['tout-eteindre'])){
 }
 
 elseif (isset($_POST['tout-allumer'])) {
-	$rep=$bdd->query('UPDATE `chauffage` SET `Etat` = 1');
+	$rep=$bdd->query('UPDATE `chauffage` SET `Etat` = 1');}
 	if(isset($_POST['degres'])){
 		$temp=$_POST['degres'];
 		$req=$bdd->query('UPDATE chauffage SET TempChauff ='.$temp.';');
 	}
-}
 
-header('Location: ../../temperature.php');
-?>
+
+	header('Location: ../../temperature.php');
+	?>

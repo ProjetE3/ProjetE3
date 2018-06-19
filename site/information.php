@@ -22,52 +22,96 @@
 	try{
 		$bdd= new PDO('mysql:host=localhost;dbname=hestiadb;charset=utf8','root','');}catch(Exception $e){echo "Unable to connect to the database :'('";}
 
-		$chaine='[';$maxVValue=0;$Lum=0;$Cha=0;$Ele=0;$i=0;$totLum=0;$totCha=0;$totEle=0;
+		$chaine='[';$chaine2='[';
+		$maxVValue=0;
+		$Lum=0;$Cha=0;$Ele=0;
+		$totConsMin=0;$totCons=0;
+		$i=0;$j=0;
+		$totMoySc=0;
+		$totConfMin=0;$totConf=0;
+		$totLum=0;$totCha=0;$totEle=0;
 
 		$rep=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdLumiere IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdLumiere ASC ORDER BY DateHeureMinute ASC;");
 		$rep2=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdChauffage IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdChauffage ASC ORDER BY DateHeureMinute ASC;");
 		$rep3=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(EnerCons) AS Energie_consomme FROM (SELECT * FROM energie WHERE IdElectro IS NOT NULL ORDER BY IdEner DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdElectro ASC ORDER BY DateHeureMinute ASC;");
+		$rep4=$bdd->query("SELECT DATE_FORMAT(`DateHeureMinute`,'%H:%i') AS Jour, SUM(Score)/60 AS Score_minute, IdPiece FROM (SELECT * FROM scores WHERE IdUtil='admin' ORDER BY IdScore DESC LIMIT 5400) sub GROUP BY MINUTE(DateHeureMinute) ASC, IdPiece ASC ORDER BY DateHeureMinute ASC,IdPiece ASC;");
 
-		if($rep!=FALSE && $rep2!=FALSE && $rep3!=FALSE){
+		if($rep!=FALSE && $rep2!=FALSE && $rep3!=FALSE && $rep4!=FALSE){
 			while($data=$rep->fetch()){
 				if($data2=$rep2->fetch()){
 					if($data3=$rep3->fetch()){
+						if($data4=$rep4->fetch()){
 						if($i==0){
 							$chaine .= '"'.$data['Jour'].'",';
+							$chaine2 .= '"'.$data4['Jour'].'",';
+
 							$Lum=$Lum+$data['Energie_consomme'];
 							$Cha=$Cha+$data2['Energie_consomme'];
 							$Ele=$Ele+$data3['Energie_consomme'];
+
+
+							$totConsMin=$totConsMin+(($data['Energie_consomme']*6*30)+($data2['Energie_consomme']*48*30)+($data3['Energie_consomme']*36*30));
+						  $totConfMin=$totConfMin+($data4['Score_minute']*0.5);
+
+
 							$i++;
+							$j++;
 						}
 						else if($i<=2){
-							$i++;
+							$Lum=$Lum+$data['Energie_consomme'];
+							$Cha=$Cha+$data2['Energie_consomme'];
+							$Ele=$Ele+$data3['Energie_consomme'];
 
+							$totConsMin=$totConsMin+(($data['Energie_consomme']*6*30)+($data2['Energie_consomme']*48*30)+($data3['Energie_consomme']*36*30));
+							$totConfMin=$totConfMin+($data4['Score_minute']*0.25);
+
+							$i++;
 							if($i==3){
-								$Lum=$Lum+$data['Energie_consomme'];
-								$Cha=$Cha+$data2['Energie_consomme'];
-								$Ele=$Ele+$data3['Energie_consomme'];
+
+								$totCons=$totCons+$totConsMin;
+								$totConsMin=-(100/8500)*12*$totConsMin*30*0.9+((100/8500)*9500)+100;
+								$totConf=$totConf+$totConfMin;
+
+								if($totConsMin>100){$totConsMin=100;}
+								else if($totConsMin<0){$totConsMin=0;}
+
 								$chaine.=($Lum+$Cha+$Ele).'],[';
+								$chaine2.=(0.7*$totConsMin+0.3*$totConfMin).','.$totConsMin.','.$totConfMin.'],[';
+
 								$totLum=$totLum+$Lum;
 								$totCha=$totCha+$Cha;
 								$totEle=$totEle+$Ele;
+
 								$Lum=0;
 								$Cha=0;
 								$Ele=0;
+
+								$totConsMin=0;
+								$totConfMin=0;
+
 								$i=0;
 							}else{
-								$Lum=$Lum+$data['Energie_consomme'];
-								$Cha=$Cha+$data2['Energie_consomme'];
-								$Ele=$Ele+$data3['Energie_consomme'];
+
 							}
 						}
 					}
 				}
 			}
-			$rep->closeCursor();
+		}
+			$rep->closeCursor();$rep2->closeCursor();;$rep3->closeCursor();$rep4->closeCursor();
 		}
 
 		$chaine= substr($chaine,0,strlen($chaine)-2);
+		$chaine2= substr($chaine2,0,strlen($chaine2)-2);
 		if($chaine==NULL){$chaine='[0,1],[31,2]';}
+
+
+
+		$totCons=12*$totCons*0.9;
+		$sccons=-(100/8500)*$totCons+((100/8500)*9500)+100;
+		if($sccons>100){$sccons=100;}
+		else if($sccons<0){$sccons=0;}
+		$totConf=$totConf/$j;
 		?>
 
 		<script type="text/javascript">
@@ -132,6 +176,39 @@
 			chart2.draw(data2, options2);
 
 		}
+
+		google.charts.load('current', {'packages':['line']});
+		google.charts.setOnLoadCallback(drawChart2);
+
+		function drawChart2() {
+			var data3 = google.visualization.arrayToDataTable([
+				['Temps', 'Score','Score Consommation','Score Confort'],<?php echo $chaine2;?>
+			]);
+
+			var options3 = {
+				//theme : 'material',
+				chart: {title: 'Evolution des scores'},
+				//curveType:'function',
+				width: 445,
+				height: 280,
+
+				hAxis: {textPosition:'out',format:'dd MMM, y'},
+				legend : {position: 'right'},
+				vAxis: {minValue:0},
+				axes:{
+					y: {0:{label:'Score'}},
+				},
+
+				selectionMode:'single',
+				tooltip: {trigger:'focus'},
+				agregationTarget:'series',
+			};
+
+
+			var chart = new google.charts.Line(document.getElementById('curve_chart2'));
+
+			chart.draw(data3, options3);
+		}
 		</script>
 
 </header>
@@ -195,26 +272,17 @@
 					<div class="textScore">Score</div>
 					<div class="score">
 						<?php
-						$base = mysqli_connect("localhost", "root","","hestiadb");
-						if ($base) {
-							$sql="SELECT `ScoreUtil` FROM `utilisateur` WHERE IdMaison=1";
-							$resultat = mysqli_query($base,$sql);
-							if ($resultat == TRUE) {
-								while ($ligne = mysqli_fetch_assoc($resultat)) {
-									$score=$ligne['ScoreUtil'];
+									$score=intval($sccons*0.7+$totConf*0.3);
 									if($score<=33){echo '<font color="#FF4848">'.$score."</font>";}
 									else if($score<=66){echo '<font color="#F4A460">'.$score."</font>";}
 									else{echo '<font color="#7BD272">'.$score."</font>";}
-								}
-							}
-						}
 						?>
 					</div>
 				</div>
-				<div class="Scores">
+				<div class="scoreBarBlock">
 					<div class="CursorCon">
 						<div class="scoreBarText">
-							Consomation
+							Consommation
 						</div>
 						<div class="scoreBar">
 							<br><br>
@@ -223,7 +291,7 @@
 								<div class="threshold-orange"></div>
 								<div class="threshold-vert"> </div>
 							</div>
-						 <input type='range' disabled='disabled' min='0' max='100' step='1' value="0"
+						 <input type='range' disabled='disabled' min='0' max='100' step='1' value=<?php echo '"'.$sccons.'"';?>
 							/>
 							<br><br>
 						</div>
@@ -240,7 +308,7 @@
 								<div class="threshold-orange"></div>
 								<div class="threshold-vert"> </div>
 							</div>
-							<input type='range' disabled='disabled' min='0' max='100' step='1' value="100"
+							<input type='range' disabled='disabled' min='0' max='100' step='1' value=<?php echo '"'.$totConf.'"';?>
 							/>
 
 							<br><br>
@@ -250,9 +318,10 @@
 				</div>
 
 			</div>
-			<div class="appareils">
+			<div class="Scores">
 				<div class="textAppareil">Evolution</div>
-				<div class="graphScores"></div>
+				<div class="graphScores"><div id="curve_chart2" ></div></div>
+
 			</div>
 
 		</div>
@@ -264,7 +333,7 @@
 			<div class="Price">
 				<h1>Coût total de la consommation sur 30 jours :</h1>
 			<br /><br /><br />
-			<p><?php echo "~".number_format((($totLum*0.001*6*30)+($totCha*0.01*6*30)+$totEle)*0.14, 3)." €";?></p>
+			<p><?php echo "~".number_format((($totLum*6*30)+($totCha*48*30)+($totEle*36*30))*0.14, 3)." €";?></p>
 			<br /><hr /><br />
 			<h2>soit 0,14 € par kW/h</h2>
 		</div>
